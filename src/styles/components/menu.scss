@@ -1,0 +1,95 @@
+.Menu {
+    width: 320px;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.24px;
+    color: #FFFFFF;
+    background: #00B5B5;
+
+    .MenuItem {
+        position: relative;
+        height: 51px;
+        padding: 15px 50px 20px 25px;
+        border-bottom: 1px #000 solid;
+    }
+
+    .menu-item {
+        cursor: pointer;
+
+        &:after {
+            position: relative;
+            display: block;
+            top: 0;
+            height: 20px;
+            background-color: #CFEB34;
+        }
+    }
+
+    .MenuTitle {
+        height: 51px;
+        padding: 15px 44px 15px 14px;
+        border-bottom: 1px #000 solid;
+        font-weight: bold;
+
+        &:after {
+            content: "\25b2";
+            position: absolute;
+            right: 30px;
+            transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+        }
+    }
+
+    .arrow-up {
+        &:after {
+            transform: rotateX(180deg);
+            -webkit-transform: rotateX(180deg);
+        }
+    }
+
+    .foldAnimation {
+        animation-name: foldItem;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    .unfoldAnimation {
+        animation-name: unfoldItem;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+@keyframes foldItem {
+    from {
+        height: 51px;
+        padding: 15px 50px 20px 25px;
+        border-bottom: 1px #000 solid;
+        opacity: 1;
+    }
+    to {
+        height: 0px;
+        padding: 0 50px 0 25px;
+        border: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes unfoldItem {
+    from {
+        height: 0px;
+        padding: 0 50px 0 25px;
+        border: 0;
+        opacity: 0;
+    }
+    to {
+        height: 51px;
+        padding: 15px 50px 20px 25px;
+        border-bottom: 1px #000 solid;
+        opacity: 1;
+    }
+}
