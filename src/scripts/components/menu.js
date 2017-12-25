@@ -3,8 +3,6 @@ import React, {Component} from 'react';
 import * as MenuConfig from '../../config/menu-info.json';
 import '../../styles/components/menu.scss';
 
-var FOCUS_ELEMENT = '';
-
 class Menu extends Component {
     render() {
         return (
@@ -13,6 +11,7 @@ class Menu extends Component {
                     key={item.text}
                     text={item.text}
                     nodes={item.nodes}
+                    level={0}
                     selected={true} />
             ))
         );
@@ -48,6 +47,7 @@ class MenuPanel extends Component {
                 <MenuTitle
                     text={this.props.text}
                     selected={this.props.selected}
+                    level={this.props.level}
                     foldHandler={() => this.handleFoldStatus()} />
                 {
                     this.props.nodes.map((item) => (
@@ -56,12 +56,14 @@ class MenuPanel extends Component {
                             key={item.text}
                             text={item.text}
                             icon={item.icon}
+                            level={this.props.level + 1}
                             selected={this.state.childSelected} />
                         :
                         <MenuPanel
                             key={item.text}
                             text={item.text}
                             nodes={item.nodes}
+                            level={this.props.level + 1}
                             selected={this.state.childSelected} />
                     ))
                 }
@@ -77,13 +79,14 @@ class MenuTitle extends Component {
             selected: true
         };
     }
+    getTextIndentStyle(level) {
+        return {
+            textIndent: MenuConfig['menu-indent'] * level + 'px'
+        };
+    }
     handleFoldStatus() {
         var foldHandler = this.props.foldHandler;
         foldHandler();
-
-        // this.setState((prevState) => ({
-        //     selected: !prevState.selected
-        // }));
 
         this.setState({
             selected: !this.state.selected
@@ -93,6 +96,7 @@ class MenuTitle extends Component {
         return (
             <div
                 className={`MenuTitle MenuItem ${this.state.selected ? 'arrow-up' : ''} ${this.props.selected ? 'unfoldAnimation' : 'foldAnimation'}`}
+                style={this.getTextIndentStyle(this.props.level || [])}
                 onClick={() => this.handleFoldStatus()}>
                 {this.props.text}
             </div>
@@ -101,9 +105,9 @@ class MenuTitle extends Component {
 }
 
 class MenuItem extends Component {
-    getTextIndentStyle(path) {
+    getTextIndentStyle(level) {
         return {
-            textIndent: MenuConfig['menu-indent'] * path.length + 'px'
+            textIndent: MenuConfig['menu-indent'] * level + 'px'
         };
     }
 
@@ -111,7 +115,7 @@ class MenuItem extends Component {
         return (
             <div
                 className={`MenuItem menu-item ${this.props.classNames || ''} ${this.props.selected ? 'unfoldAnimation' : 'foldAnimation'}`}
-                style={this.getTextIndentStyle(this.props.path || [])}>
+                style={this.getTextIndentStyle(this.props.level || [])}>
                 <span
                     className={
                         `MenuItemText ${this.props.icon ? ('background-' + this.props.icon) : ''}`}>
