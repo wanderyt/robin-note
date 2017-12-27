@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 
 import Header from './scripts/components/header';
 import Menu from './scripts/components/menu';
+import Main from './scripts/components/main';
+import {BrowserRouter} from 'react-router-dom';
+import Routers from './routes';
 
 // import Tree from './scripts/components/tree';
 
@@ -24,14 +27,19 @@ class App extends Component {
             }]
         };
         return (
-            <div
-                className='application'>
-                <Header
-                    classNames=''
-                    text=''/>
+            <BrowserRouter>
+                <div
+                    className='application'>
+                    <Header
+                        classNames=''
+                        text=''/>
 
-                <Menu />
-            </div>
+                    <Menu />
+                    <Main>
+                        <Routers />
+                    </Main>
+                </div>
+            </BrowserRouter>
         )
     }
 };
