@@ -3,17 +3,23 @@ import React, {Component} from 'react';
 import * as MenuConfig from '../../config/menu-info.json';
 import '../../styles/components/menu.scss';
 
+import {Link} from 'react-router-dom';
+
 class Menu extends Component {
     render() {
         return (
-            MenuConfig.menus.map((item) => (
-                <MenuPanel
-                    key={item.text}
-                    text={item.text}
-                    nodes={item.nodes}
-                    level={0}
-                    selected={true} />
-            ))
+            <div className={`Menu`}>
+                {
+                    MenuConfig.menus.map((item) => (
+                        <MenuPanel
+                            key={item.text}
+                            text={item.text}
+                            nodes={item.nodes}
+                            level={0}
+                            selected={true} />
+                    ))
+                }
+            </div>
         );
     }
 }
@@ -43,7 +49,7 @@ class MenuPanel extends Component {
     render() {
         return (
             <div
-                className={`Menu ${this.props.classNames || ''}`}>
+                className={`MenuPanel ${this.props.classNames || ''}`}>
                 <MenuTitle
                     text={this.props.text}
                     selected={this.props.selected}
@@ -116,11 +122,12 @@ class MenuItem extends Component {
             <div
                 className={`MenuItem menu-item ${this.props.classNames || ''} ${this.props.selected ? 'unfoldAnimation' : 'foldAnimation'}`}
                 style={this.getTextIndentStyle(this.props.level || [])}>
-                <span
-                    className={
-                        `MenuItemText ${this.props.icon ? ('background-' + this.props.icon) : ''}`}>
-                    {this.props.text}
-                </span>
+                <Link to={`/${this.props.text}`}>
+                    <span
+                        className={`MenuItemText ${this.props.icon ? ('background-' + this.props.icon) : ''}`}>
+                        {this.props.text}
+                    </span>
+                </Link>
             </div>
         )
     }
