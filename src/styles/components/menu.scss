@@ -1,62 +1,67 @@
 .Menu {
-    width: 320px;
-    font-size: 14px;
-    line-height: 16px;
-    letter-spacing: 0.24px;
-    color: #FFFFFF;
-    background: #00B5B5;
+    display: inline-block;
+    vertical-align: top;
 
-    .MenuItem {
-        position: relative;
-        height: 51px;
-        padding: 15px 50px 20px 25px;
-        border-bottom: 1px #000 solid;
-    }
+    .MenuPanel {
+        width: 200px;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: 0.24px;
+        color: #FFFFFF;
+        background: #00B5B5;
 
-    .menu-item {
-        cursor: pointer;
-
-        &:after {
+        .MenuItem {
             position: relative;
-            display: block;
-            top: 0;
-            height: 20px;
-            background-color: #CFEB34;
+            height: 51px;
+            padding: 15px 50px 20px 25px;
+            border-bottom: 1px #000 solid;
         }
-    }
 
-    .MenuTitle {
-        height: 51px;
-        padding: 15px 44px 15px 14px;
-        border-bottom: 1px #000 solid;
-        font-weight: bold;
+        .menu-item {
+            cursor: pointer;
 
-        &:after {
-            content: "\25b2";
-            position: absolute;
-            right: 30px;
-            transition: all 0.5s ease;
-            -webkit-transition: all 0.5s ease;
+            &:after {
+                position: relative;
+                display: block;
+                top: 0;
+                height: 20px;
+                background-color: #CFEB34;
+            }
         }
-    }
 
-    .arrow-up {
-        &:after {
-            transform: rotateX(180deg);
-            -webkit-transform: rotateX(180deg);
+        .MenuTitle {
+            height: 51px;
+            padding: 15px 44px 15px 14px;
+            border-bottom: 1px #000 solid;
+            font-weight: bold;
+
+            &:after {
+                content: "\25b2";
+                position: absolute;
+                right: 30px;
+                transition: all 0.5s ease;
+                -webkit-transition: all 0.5s ease;
+            }
         }
-    }
 
-    .foldAnimation {
-        animation-name: foldItem;
-        animation-duration: 0.5s;
-        animation-fill-mode: forwards;
-    }
+        .arrow-up {
+            &:after {
+                transform: rotateX(180deg);
+                -webkit-transform: rotateX(180deg);
+            }
+        }
 
-    .unfoldAnimation {
-        animation-name: unfoldItem;
-        animation-duration: 0.5s;
-        animation-fill-mode: forwards;
+        .foldAnimation {
+            animation-name: foldItem;
+            animation-duration: 0.5s;
+            animation-fill-mode: forwards;
+        }
+
+        .unfoldAnimation {
+            animation-name: unfoldItem;
+            animation-duration: 0.5s;
+            animation-fill-mode: forwards;
+        }
     }
 }
 
