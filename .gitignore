@@ -20,4 +20,4 @@ yarn-error.log*
 .vscode
 
 # npm
-package-loc.json
+package-lock.json
