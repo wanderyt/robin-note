@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import Login from './header/login';
+
 import '../../styles/components/header.scss';
 // import '../../styles/components/header.css';
 
@@ -11,6 +13,8 @@ class Header extends Component {
                 {
                     `${this.props.text || 'this is header'}`
                 }
+                <Login
+                    loginCallback={this.props.loginCallback}/>
             </div>
         )
     }
