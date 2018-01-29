@@ -20,6 +20,10 @@
         "nodes": [{
             "text": "Games"
         }, {
+            "text": "Paint"
+        }, {
+            "text": "QuickPaint"
+        }, {
             "text": "Sports",
              "nodes": [{
                 "text": "Football"
@@ -28,5 +32,15 @@
             }]
         }]
     }],
-    "menu-indent": 20
+    "menu-indent": 20,
+    "images": [
+        "https://pbs.twimg.com/media/DUWMTchW4AA9t-Q.jpg",
+        "https://pbs.twimg.com/media/DUWE5iwX4AM3WgR.jpg",
+        "https://pbs.twimg.com/media/DUX1bIlXcAAjjD8.jpg",
+        "https://pbs.twimg.com/media/DUWM8LoX0AAExFw.jpg",
+        "https://pbs.twimg.com/media/DUZt6rIW4AEWmQP.jpg",
+        "https://pbs.twimg.com/media/DUWPzZ7W4AExatH.jpg",
+        "https://pbs.twimg.com/media/DUWOKYHW0AEGs0s.jpg",
+        "https://pbs.twimg.com/media/DUaK2-NWsAAEdfA.jpg"
+    ]
 }

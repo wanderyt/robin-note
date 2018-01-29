@@ -60,10 +60,12 @@ class App extends Component {
                         text=''
                         loginCallback={this.loginCallback}/>
 
-                    <Menu />
-                    <Main>
-                        <Routers />
-                    </Main>
+                    <div className="Content">
+                        <Menu />
+                        <Main>
+                            <Routers />
+                        </Main>
+                    </div>
                 </div>
             </BrowserRouter>
         )
