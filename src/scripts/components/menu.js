@@ -1,26 +1,61 @@
 import React, {Component} from 'react';
 
-import * as MenuConfig from '../../config/menu-info.json';
+import * as MenuConfig from '../../config/config.json';
 import '../../styles/components/menu.scss';
 
 import {Link} from 'react-router-dom';
 
 class Menu extends Component {
+    constructor() {
+        super();
+
+        this.onDocumentScroll = this.onDocumentScroll.bind(this);
+    }
     render() {
         return (
-            <div className={`Menu`}>
-                {
-                    MenuConfig.menus.map((item) => (
-                        <MenuPanel
-                            key={item.text}
-                            text={item.text}
-                            nodes={item.nodes}
-                            level={0}
-                            selected={true} />
-                    ))
-                }
+            <div
+                className={`Menu`}>
+                <div
+                    ref={(menu) => this.menu = menu}>
+                    {
+                        MenuConfig.menus.map((item) => (
+                            <MenuPanel
+                                key={item.text}
+                                text={item.text}
+                                nodes={item.nodes}
+                                level={0}
+                                selected={true} />
+                        ))
+                    }
+                </div>
             </div>
         );
+    }
+
+    componentDidMount() {
+        // get current offset top
+        let menu = this.menu,
+            rect = menu.getBoundingClientRect();
+        this.top = rect.top + window.scrollY;
+        // Fix menu list when scroll
+        document.addEventListener('scroll', this.onDocumentScroll);
+    }
+
+    onDocumentScroll(evt) {
+        let menu = this.menu,
+            rect = menu.getBoundingClientRect(),
+            style = menu.style;
+        if (rect.top < 0 && style.position !== 'fixed') {
+            style.position = 'fixed';
+            style.top = 0;
+        } else if (window.scrollY < this.top) {
+            style.position = 'static';
+        }
+    }
+
+    componentWillUnmount() {
+        // Remove scroll event listener
+        document.removeEventListener('scroll', this.onDocumentScroll);
     }
 }
 
