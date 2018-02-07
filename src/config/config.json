@@ -33,6 +33,34 @@
         }]
     }],
     "menu-indent": 20,
+
+    "menuBar": [{
+        "text": "Study",
+        "nodes": [{
+            "text": "Number"
+        }, {
+            "text": "Plus"
+        }, {
+            "text": "Minus"
+        }, {
+            "text": "English"
+        }, {
+            "text": "Chinese"
+        }]
+    }, {
+        "text": "Entertainment",
+        "nodes": [{
+            "text": "Games"
+        }, {
+            "text": "Paint"
+        }, {
+            "text": "QuickPaint"
+        }, {
+            "text": "Football"
+        }, {
+            "text": "Badminton"
+        }]
+    }],
     "images": [
         "https://pbs.twimg.com/media/DUWMTchW4AA9t-Q.jpg",
         "https://pbs.twimg.com/media/DUWE5iwX4AM3WgR.jpg",

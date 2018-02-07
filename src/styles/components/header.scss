@@ -1,5 +1,9 @@
 .Header {
     height: 200px;
-    background-color: grey;
-    border: 1px solid red;
+    background: linear-gradient(
+        rgba(0, 0, 0, .7),
+        rgba(0, 0, 0, .7)
+      ), url('../../images/header-image.png');
+    background-size: 100% 200px;
+    background-repeat: no-repeat;
 }
