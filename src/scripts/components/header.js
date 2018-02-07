@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Login from './header/login';
+import ToggleNav from './header/toggleNav';
 
 import '../../styles/components/header.scss';
 // import '../../styles/components/header.css';
@@ -10,11 +11,11 @@ class Header extends Component {
         return (
             <div
                 className={`Header ${this.props.classNames || ''}`}>
-                {
-                    `${this.props.text || 'this is header'}`
-                }
                 <Login
-                    loginCallback={this.props.loginCallback}/>
+                    loginCallback={this.props.loginCallback} />
+                <ToggleNav
+                    hNav={this.props.hNav}
+                    changeCallback={this.props.changeNavStyle} />
             </div>
         )
     }
