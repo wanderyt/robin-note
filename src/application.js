@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Header from './scripts/components/header';
+import MenuBar from './scripts/components/menubar';
 import Menu from './scripts/components/menu';
 import Main from './scripts/components/main';
 import {BrowserRouter} from 'react-router-dom';
@@ -17,10 +18,12 @@ class App extends Component {
 
         this.state = {
             username: '',
-            loginStatus: false
+            loginStatus: false,
+            hNav: true
         }
 
         this.loginCallback = this.loginCallback.bind(this);
+        this.changeNavStyle = this.changeNavStyle.bind(this);
     }
 
     getChildContext() {
@@ -34,6 +37,12 @@ class App extends Component {
         this.setState({
             username, loginStatus
         })
+    }
+
+    changeNavStyle(value) {
+        this.setState({
+            hNav: value
+        });
     }
 
     render() {
@@ -58,14 +67,33 @@ class App extends Component {
                     <Header
                         classNames=''
                         text=''
-                        loginCallback={this.loginCallback}/>
+                        hNav={this.state.hNav}
+                        loginCallback={this.loginCallback}
+                        changeNavStyle={this.changeNavStyle}/>
 
-                    <div className="Content">
-                        <Menu />
-                        <Main>
-                            <Routers />
-                        </Main>
-                    </div>
+                    {/* Horizontal Navigator */}
+                    {
+                        this.state.hNav &&
+                        <div>
+                            <MenuBar />
+                            <div className="Content">
+                                <Main>
+                                    <Routers />
+                                </Main>
+                            </div>
+                        </div>
+                    }
+                    {/* Vertical Navigator */}
+                    {
+                        !this.state.hNav &&
+                        <div className="Content">
+                            <Menu />
+                            <Main>
+                                <Routers />
+                            </Main>
+                        </div>
+                    }
+
                 </div>
             </BrowserRouter>
         )
