@@ -15,3 +15,9 @@ Add login related features.
 Add lazyload image page.
 
 - Attached in Paint menu item.
+
+### 1.3.0
+
+Add horizontal menu bar feature.
+
+Add button to switch between horizontal menu bar and vertical menu bar.
