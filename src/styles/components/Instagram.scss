@@ -1,0 +1,32 @@
+.Instagram {
+    .Instagram__Main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0 auto;
+
+        .Ins_Image_Gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            .ImageContainer {
+                width: 210px;
+                height: 210px;
+                border: 1px grey solid;
+                margin: 10px;
+                padding: 5px;
+                cursor: pointer;
+
+                .image {
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
