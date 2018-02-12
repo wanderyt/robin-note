@@ -52,7 +52,7 @@ class UIOverlay extends React.Component {
             <div
                 className={`Overlay ${this.state.isShown ? '' : 'hidden'} ${this.props.classNames}`}>
                 <div
-                    className="Overlay__Main" />
+                    className="Overlay__Modal" />
                 {this.props.children}
                 <div
                     className="btn-close"
@@ -97,7 +97,45 @@ ImageOverlay.propTypes = {
     closeCallback: PropTypes.func
 };
 
+class ImageOverlayWithDesc extends React.Component {
+    render() {
+        let style = {
+            backgroundImage: `url(${this.props.imgUrl})`
+        };
+        return (
+            <UIOverlay
+                classNames="ImageOverlayWithDesc"
+                isShown={this.props.isShown}
+                closeCallback={this.props.closeCallback}>
+                <div
+                    className="ImageOverlay__Content">
+                    <div
+                        className="ImageOverlay__ImageContainer">
+                        <div
+                            className="ImageOverlay__Image"
+                            style={style} />
+                    </div>
+                    <div
+                        className="ImageOverlay__Desc">
+                        {this.props.desc}
+                    </div>
+                </div>
+            </UIOverlay>
+        );
+    }
+}
+
+ImageOverlayWithDesc.displayName = "ImageOverlayWithDesc";
+
+ImageOverlayWithDesc.propTypes = {
+    isShown: PropTypes.bool,
+    imgUrl: PropTypes.string,
+    closeCallback: PropTypes.func,
+    desc: PropTypes.string
+};
+
 export {
     ImageOverlay,
-    UIOverlay
+    UIOverlay,
+    ImageOverlayWithDesc
 };

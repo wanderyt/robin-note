@@ -40,7 +40,8 @@ class ImageContainer extends React.Component {
 ImageContainer.propTypes = {
     id: PropTypes.string,
     imgUrl: PropTypes.string,
-    desc: PropTypes.string
+    desc: PropTypes.string,
+    onImageClick: PropTypes.func
 }
 
 export default ImageContainer;
