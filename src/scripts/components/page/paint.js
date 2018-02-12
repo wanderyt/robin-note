@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazyload';
 import * as ImageConfig from "../../../config/config.json";
 import { ImageOverlay } from "../../uikit/UIOverlay";
+import axios from 'axios';
 
 import '../../../styles/components/paint.scss';
 
@@ -18,8 +19,8 @@ class Paint extends React.Component {
     }
     componentDidMount() {
         ImageConfig.images.map(item => {
-            fetch(`/api/downloadPicture?img=${item.split('media/')[1]}&type=twitter`).then((resp) => {
-                console.log(resp);
+            axios(`/api/downloadPicture?img=${item.split('media/')[1]}&type=twitter`).then((resp) => {
+                console.log(resp.data);
             });
         });
     }

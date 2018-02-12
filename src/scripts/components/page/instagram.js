@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazyload';
-import { ImageOverlay } from "../../uikit/UIOverlay";
+import { ImageOverlayWithDesc } from "../../uikit/UIOverlay";
 import ImageContainer from '../../uikit/ImageContainer';
 import { UIButton } from '../../uikit/UIButton';
+import axios from 'axios';
 
 import '../../../styles/components/Instagram.scss';
 
@@ -25,24 +26,27 @@ class Instagram extends React.Component {
         this.toggleLoadMore = this.toggleLoadMore.bind(this);
     }
     componentDidMount() {
-        fetch(`/api/ins/images?id=ARSENAL&offset=30`)
-            .then((resp) => resp.json())
-            .then(respData => {
-                let {data, hasNext, nextCursor} = respData;
-                this.setState({
-                    nextTimeHash: nextCursor,
-                    hasNext: hasNext,
-                    data: data
-                });
+        axios
+            .get(`/api/ins/images?id=ARSENAL&offset=30`)
+            .then(response => {
+                if (response.status === 200) {
+                    let {data, hasNext, nextCursor} = response.data;
+                    this.setState({
+                        nextTimeHash: nextCursor,
+                        hasNext: hasNext,
+                        data: data
+                    });
+                }
             });
 
         document.addEventListener('scroll', this.loadingMorePhotos);
     }
 
-    displayImage(imgUrl) {
+    displayImage(imgUrl, imgDesc) {
         if (imgUrl) {
             this.setState({
-                imgUrl: imgUrl
+                imgUrl,
+                imgDesc
             });
         }
     }
@@ -55,16 +59,17 @@ class Instagram extends React.Component {
                 loading: true
             });
 
-            fetch(`/api/ins/images?id=ARSENAL&offset=30&nextTimeHash=${this.state.nextTimeHash}`)
-                .then((resp) => resp.json())
-                .then(function (respData) {
-                    let {data, hasNext, nextCursor} = respData;
-                    this.setState({
-                        nextTimeHash: nextCursor,
-                        hasNext: hasNext,
-                        data: [...this.state.data, ...data],
-                        loading: false
-                    });
+            axios(`/api/ins/images?id=ARSENAL&offset=30&nextTimeHash=${this.state.nextTimeHash}`)
+                .then(function (response) {
+                    if (response.status === 200) {
+                        let {data, hasNext, nextCursor} = response;
+                        this.setState({
+                            nextTimeHash: nextCursor,
+                            hasNext: hasNext,
+                            data: [...this.state.data, ...data],
+                            loading: false
+                        });
+                    }
                 }.bind(this));
         }
     }
@@ -75,7 +80,8 @@ class Instagram extends React.Component {
 
     closeImageHandler() {
         this.setState({
-            imgUrl: ''
+            imgUrl: '',
+            imgDesc: ''
         });
     }
 
@@ -125,7 +131,7 @@ class Instagram extends React.Component {
                                 imgFullUrl={item.imgFullUrl}
                                 imgThumbnailUrl={item.imgThumbnailUrl}
                                 desc={item.desc}
-                                onImageClick={() => this.displayImage(item.imgFullUrl)} />
+                                onImageClick={() => this.displayImage(item.imgFullUrl, item.desc)} />
                         })}
                     </div>
                     {/* Loading more */}
@@ -133,10 +139,11 @@ class Instagram extends React.Component {
                         this.state.loading && <div>Loading more...</div>
                     }
                 </div>
-                <ImageOverlay
+                <ImageOverlayWithDesc
                     isShown={this.state.imgUrl ? true : false}
                     imgUrl={this.state.imgUrl}
-                    closeCallback={this.closeImageHandler} />
+                    closeCallback={this.closeImageHandler}
+                    desc={this.state.imgDesc} />
             </div>
         );
     }

@@ -49,7 +49,7 @@ const imageDownloader = (app, {PROXY}) => {
                                 console.error(`Save image ${name} failed`);
                             })
                         } else {
-                            console.log("image ${name} has been saved before!");
+                            console.log(`image ${name} has been saved before!`);
                         }
                     } catch(e) {
                         console.error(`Save image ${name} failed...`);
