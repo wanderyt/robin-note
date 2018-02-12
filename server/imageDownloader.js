@@ -18,6 +18,10 @@ const imageDownloader = (app, {PROXY}) => {
                 break;
         }
 
+        // send success response from performance consideration
+        // no need to wait for the image save
+        resp.send('success');
+
         try {
             http.get ({
                 host: PROXY.host,
@@ -37,35 +41,26 @@ const imageDownloader = (app, {PROXY}) => {
                                     imageFile.write(chunk);
                                 });
                                 response.on("end", function(){
-                                    console.log("saved png");
-                                    resp.send('success');
+                                    console.log("Save image ${name} success");
                                 });
                             });
 
                             response.on("error", () => {
                                 console.error(`Save image ${name} failed`);
-                                resp.statusCode = 500;
-                                resp.send('response error fail');
                             })
                         } else {
-                            console.log("image has been saved before!");
-                            resp.send('success');
+                            console.log("image ${name} has been saved before!");
                         }
                     } catch(e) {
-                        console.error(`Save image ${name} error1...`);
-                        resp.statusCode = 500;
-                        resp.send('exception fail');
+                        console.error(`Save image ${name} failed...`);
                     }
                 } else {
-                    resp.statusCode = 500;
-                    resp.send('status code fail');
+                    console.error(`Cannot fetch image ${name}...`);
                 }
             });
         } catch(e) {
             console.error(e);
-            console.error(`Save image ${name} error2...`);
-            resp.statusCode = 500;
-            resp.send('fail');
+            console.error(`Save image ${name} error...`);
         }
     });
 }
