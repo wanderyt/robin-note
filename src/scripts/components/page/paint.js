@@ -2,23 +2,64 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazyload';
 import * as ImageConfig from "../../../config/config.json";
+import { ImageOverlay } from "../../uikit/UIOverlay";
 
 import '../../../styles/components/paint.scss';
 
 class Paint extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            imgUrl: ''
+        };
+
+        this.displayImage = this.displayImage.bind(this);
+    }
+    componentDidMount() {
+        ImageConfig.images.map(item => {
+            fetch(`/api/downloadPicture?img=${item.split('media/')[1]}&type=twitter`).then((resp) => {
+                console.log(resp);
+            });
+        });
+    }
+
+    displayImage(imgUrl) {
+        if (imgUrl) {
+            this.setState({
+                imgUrl: imgUrl
+            });
+        }
+    }
+
     render() {
         return (
             <div
                 className="Paint">
-                {ImageConfig.images.map(item =>
-                    <LazyLoad
-                        height={200}
-                        key={item}>
-                        <img
-                            src={`${item}:large`}
-                            alt="This is a pic" />
-                    </LazyLoad>
-                )}
+                <div
+                    className="paint-main">
+                    {ImageConfig.images.map(item => {
+                        let style = {
+                            backgroundImage: `url(${item})`
+                        };
+                        return (
+                            <div
+                                className="image-item"
+                                key={item}
+                                onClick={() => this.displayImage(item)}>
+                                <LazyLoad
+                                    height={200}>
+                                    <div
+                                        className="image"
+                                        style={style} />
+                                </LazyLoad>
+                            </div>
+                        );
+                    })}
+                </div>
+                <ImageOverlay
+                    isShown={this.state.imgUrl ? true : false}
+                    imgUrl={this.state.imgUrl} />
             </div>
         );
     }

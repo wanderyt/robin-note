@@ -1,5 +1,25 @@
 .Paint {
-    img {
-        width: 800px;
+    .paint-main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0 auto;
+
+        .image-item {
+            width: 210px;
+            height: 210px;
+            border: 1px grey solid;
+            margin: 10px;
+            padding: 5px;
+            cursor: pointer;
+
+            .image {
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+
+                height: 100%;
+            }
+        }
     }
 }
