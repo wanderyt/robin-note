@@ -7,14 +7,14 @@ import '../../styles/uikit/imageContainer.scss';
 class ImageContainer extends React.Component {
     componentDidMount() {
         if (this.props.imgFullUrl) {
-            fetch(`/api/downloadPicture?img=${this.props.imgFullUrl}&type=ins&id=${this.props.id}`).then((resp) => {
+            fetch(`/api/downloadPicture?img=${this.props.imgFullUrl}&type=ins&id=${this.props.id}&insName=${this.props.insName}`).then((resp) => {
                 console.log(resp);
             });
         }
     }
     render() {
         let style = {
-            backgroundImage: `url(${this.props.imgFullUrl})`
+            backgroundImage: `url(${this.props.imgThumbnailUrl})`
         };
         return (
             <div
