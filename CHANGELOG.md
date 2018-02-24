@@ -21,3 +21,17 @@ Add lazyload image page.
 Add horizontal menu bar feature.
 
 Add button to switch between horizontal menu bar and vertical menu bar.
+
+### 1.4.0
+
+Add image save feature.
+
+- Use axios instead of feature api.
+
+Add image overlay.
+
+Add search box.
+
+Add load more.
+
+Add tag list.

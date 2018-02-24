@@ -1,0 +1,61 @@
+.Instagram {
+    .Instagram__Main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0 auto;
+
+        .Ins_Image_Gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            .ImageContainer {
+                width: 210px;
+                height: 210px;
+                border: 1px grey solid;
+                margin: 10px;
+                padding: 5px;
+                cursor: pointer;
+
+                .image {
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+
+                    height: 100%;
+                }
+            }
+        }
+
+        .LoadMore {
+            text-align: center;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            background-color: #3b5cb5;
+            color: white;
+            border-radius: 5px;
+            margin: 10px auto;
+            transition: all 0.25s ease;
+        }
+
+        .Instagram__TopHitTags {
+            .Instagram__TopHitTag {
+                display: inline-block;
+                margin: 10px 20px;
+
+                .Instagram__TopHitTagTitle {
+                    padding: 4px;
+                    color: white;
+                    background-color: #3b5cb5;
+                    border-radius: 2px;
+                    font-size: 14px;
+                    line-height: 16px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
