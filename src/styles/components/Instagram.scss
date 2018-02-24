@@ -28,5 +28,34 @@
                 }
             }
         }
+
+        .LoadMore {
+            text-align: center;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            background-color: #3b5cb5;
+            color: white;
+            border-radius: 5px;
+            margin: 10px auto;
+            transition: all 0.25s ease;
+        }
+
+        .Instagram__TopHitTags {
+            .Instagram__TopHitTag {
+                display: inline-block;
+                margin: 10px 20px;
+
+                .Instagram__TopHitTagTitle {
+                    padding: 4px;
+                    color: white;
+                    background-color: #3b5cb5;
+                    border-radius: 2px;
+                    font-size: 14px;
+                    line-height: 16px;
+                    cursor: pointer;
+                }
+            }
+        }
     }
 }

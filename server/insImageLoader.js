@@ -1,15 +1,15 @@
-const INS_ID = {
-    "ARSENAL": '264856197'
-};
-const INS_QUERY_HASH = '472f257a40c653c64c666ce877d59d2b';
+const {INS_QUERY_HASH} = require('./constants');
+const {ids} = require('../src/config/ins-config.json');
 const http = require('http');
 const INS_IMAGE_TEMPLATE = `https://www.instagram.com/graphql/query/?query_hash=${INS_QUERY_HASH}&variables={"id":{{id}},"first":{{offset}}{{nextTimeHash}}}`
 
 const insImageLoader = (app, {PROXY}) => {
     app.get('/api/ins/images', (req, res) => {
         let {id, offset = 20, nextTimeHash} = req.query,
-            objId = INS_ID[id],
+            objId = (ids.find(el => el.name == id)).id,
             path = INS_IMAGE_TEMPLATE.replace('{{id}}', objId).replace('{{offset}}', offset);
+
+        console.log(id);
 
         // set has more url
         path = path.replace('{{nextTimeHash}}', nextTimeHash ? `,"after":"${nextTimeHash}"` : '');
@@ -28,8 +28,10 @@ const insImageLoader = (app, {PROXY}) => {
                     try {
                         let output = formatInsImageData(JSON.parse(data));
                         res.setHeader('Content-Type', 'application/json');
+                        console.log(`Fetch Instagram data success...`);
                         res.json(output);
                     } catch(e) {
+                        console.log(e);
                         res.setHeader('Content-Type', 'application/json');
                         res.json({});
                     }
@@ -72,7 +74,7 @@ const formatInsImageData = (data) => {
             }
             Object.assign(d, {
                 id: imageData.id,
-                desc: imageData.edge_media_to_caption.edges[0].node.text,
+                desc: imageData.edge_media_to_caption.edges.length > 0 ? imageData.edge_media_to_caption.edges[0].node.text : '',
                 imgFullUrl: imageData.display_url
             });
             output.data.push(d);

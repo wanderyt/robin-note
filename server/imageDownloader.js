@@ -3,9 +3,11 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
+const {ids} = require('../src/config/ins-config.json');
+
 const imageDownloader = (app, {PROXY}) => {
     app.get('/api/downloadPicture', (req, resp) => {
-        let {img, id, type} = req.query;
+        let {img, id, type, insName} = req.query;
 
         switch (type) {
             case 'twitter':
@@ -31,7 +33,7 @@ const imageDownloader = (app, {PROXY}) => {
             }, function (response) {
                 if (response.statusCode === 200) {
                     try {
-                        let imgPath = `${process.cwd()}${path.sep}downloadImages`,
+                        let imgPath = `${process.cwd()}${path.sep}downloadImages${path.sep}${insName}`,
                             imgFullPath = `${imgPath}${path.sep}${name}`;
 
                         if (!fs.existsSync(imgFullPath)) {
@@ -41,7 +43,7 @@ const imageDownloader = (app, {PROXY}) => {
                                     imageFile.write(chunk);
                                 });
                                 response.on("end", function(){
-                                    console.log("Save image ${name} success");
+                                    console.log(`Save image ${name} success`);
                                 });
                             });
 
@@ -85,6 +87,10 @@ const insUrl = (imgUrl, id) => {
         url: imgUrl,
         name: id + suffix
     };
+};
+
+const findNameById = (id) => {
+    return ids.find((el) => el.id == id) || {};
 };
 
 module.exports = {
