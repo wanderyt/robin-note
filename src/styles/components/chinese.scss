@@ -3,12 +3,11 @@
         display: flex;
         flex-wrap: nowrap;
 
-        .Chinese__TextContainer {
+        .Container {
             min-width: 500px;
             width: 500px;
             height: 500px;
 
-            background-image: url('../../images/mi.jpeg');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -16,6 +15,14 @@
             text-align: center;
             line-height: 500px;
             font-size: 400px;
+        }
+
+        .Chinese__TextContainer {
+            background-image: url('../../images/mi.jpeg');
+        }
+
+        .loadingSpinner {
+            background-image: url('../../images/Spinner.svg');
         }
 
         .Chinese__WordContainer {

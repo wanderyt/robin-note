@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { UIButton } from '../../uikit/UIButton';
+import axios from 'axios';
 
 import * as ChineseConfig from '../../../config/chinese-char-dic.json';
 
@@ -10,33 +11,48 @@ class Chinese extends React.Component {
     constructor() {
         super();
 
-        this.state = {
-            index: 0,
-            currentText: '',
-            words: []
-        };
+        this.initializeState();
 
-        this.changeText = this.changeText.bind(this);
+        this.switchText = this.switchText.bind(this);
+        this.getRelatedImage = this.getRelatedImage.bind(this);
     }
 
-    changeText() {
-        let index = this.state.index,
-            chars = ChineseConfig['siwu']['3'].char,
-            currentText, words;
+    initializeState() {
+        let chars = ChineseConfig['siwu']['3'].char,
+            currentText = chars[0],
+            words = this.getWords(currentText);
 
-        if (index >= chars.length) {
-            index = 0;
-        }
-
-        currentText = chars[index];
-
-        words = this.getWords(currentText);
-
-        this.setState({
-            index: ++index,
+        this.state = {
+            index: 0,
             currentText,
-            words
-        });
+            words,
+            loading: true,
+            textImageUrl: ''
+        };
+    }
+
+    componentDidMount() {
+        let searchText = this.state.currentText,
+            words = this.state.words;
+        this.getRelatedImage(words.length > 0 ? words[0] : searchText);
+    }
+
+    getRelatedImage(searchText) {
+        axios
+            .get(`/api/ins/searchText?searchText=${searchText}`)
+            .then(response => {
+                if (response.status === 200) {
+                    let {imageUrl} = response.data;
+                    if (imageUrl) {
+                        this.setState({
+                            textImageUrl: imageUrl
+                        });
+                    }
+                }
+                this.setState({
+                    loading: false
+                });
+            });
     }
 
     getWords(text) {
@@ -44,7 +60,51 @@ class Chinese extends React.Component {
         return wordList.filter(word => word.indexOf(text) > -1);
     }
 
+    switchText(flag) {
+        let index = this.state.index,
+            chars = ChineseConfig['siwu']['3'].char;
+
+        switch (flag) {
+            case 'prev':
+                --index;
+                if (index < 0) {
+                    index = chars.length - 1;
+                }
+                break;
+            case 'next':
+                ++index;
+                if (index >= chars.length) {
+                    index = 0;
+                }
+                break;
+            case 'rand':
+                index = Math.floor(Math.random() * chars.length);
+                break;
+            default:
+                break;
+        }
+
+        let currentText = chars[index],
+            words = this.getWords(currentText);
+
+        this.setState({
+            index,
+            currentText,
+            words,
+            loading: true
+        });
+
+        this.getRelatedImage(words.length > 0 ? words[0] : currentText);
+    }
+
     render() {
+        let textImageStyle;
+
+        if (this.state.textImageUrl) {
+            textImageStyle = {
+                backgroundImage: `url(${this.state.textImageUrl})`
+            };
+        }
         return (
             <div
                 className="Chinese">
@@ -52,13 +112,23 @@ class Chinese extends React.Component {
                     <span className="Chinese__HeaderText">学汉字</span>
                     <UIButton
                         text="换一个"
-                        handleClick={this.changeText} />
+                        handleClick={() => this.switchText('rand')} />
+                    <UIButton
+                        text="上一个"
+                        handleClick={() => this.switchText('prev')} />
+                    <UIButton
+                        text="下一个"
+                        handleClick={() => this.switchText('next')} />
                 </div>
                 <div
                     className="Chinese__Main">
                     <div
-                        className="Chinese__TextContainer">
+                        className="Chinese__TextContainer Container">
                         <span className="Chinese__TextMain">{this.state.currentText}</span>
+                    </div>
+                    <div
+                        className={`Chinese__TextImageContainer Container ${this.state.loading ? 'loadingSpinner' : ''}`}
+                        style={!this.state.loading ? textImageStyle : {}}>
                     </div>
                     <div
                         className="Chinese__WordContainer">
@@ -74,6 +144,5 @@ class Chinese extends React.Component {
         )
     }
 }
-
 
 export default Chinese;
