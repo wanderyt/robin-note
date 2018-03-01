@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { UIButton } from '../../uikit/UIButton';
+import UIDropdown from '../../uikit/UIDropdown';
 import axios from 'axios';
 
 import * as ChineseConfig from '../../../config/chinese-char-dic.json';
@@ -11,6 +12,9 @@ class Chinese extends React.Component {
     constructor() {
         super();
 
+        this.state = {
+            book: 3
+        };
         this.initializeState();
 
         this.switchText = this.switchText.bind(this);
@@ -18,11 +22,12 @@ class Chinese extends React.Component {
     }
 
     initializeState() {
-        let chars = ChineseConfig['siwu']['3'].char,
+        let chars = ChineseConfig['siwu'][this.state.book].char,
             currentText = chars[0],
             words = this.getWords(currentText);
 
         this.state = {
+            book: 3,
             index: 0,
             currentText,
             words,
@@ -56,13 +61,13 @@ class Chinese extends React.Component {
     }
 
     getWords(text) {
-        let wordList = ChineseConfig['siwu']['3'].word;
+        let wordList = ChineseConfig['siwu'][this.state.book].word;
         return wordList.filter(word => word.indexOf(text) > -1);
     }
 
     switchText(flag) {
         let index = this.state.index,
-            chars = ChineseConfig['siwu']['3'].char;
+            chars = ChineseConfig['siwu'][this.state.book].char;
 
         switch (flag) {
             case 'prev':
@@ -80,6 +85,9 @@ class Chinese extends React.Component {
             case 'rand':
                 index = Math.floor(Math.random() * chars.length);
                 break;
+            case 'reset':
+                index = 0;
+                break;
             default:
                 break;
         }
@@ -95,6 +103,14 @@ class Chinese extends React.Component {
         });
 
         this.getRelatedImage(words.length > 0 ? words[0] : currentText);
+    }
+
+    changeBook(value) {
+        this.setState({
+            book: value
+        });
+
+        this.switchText('reset');
     }
 
     render() {
@@ -119,6 +135,9 @@ class Chinese extends React.Component {
                     <UIButton
                         text="下一个"
                         handleClick={() => this.switchText('next')} />
+                    <UIDropdown
+                        options={[3,4,5]}
+                        onChange={e => this.changeBook(e.target.value)} />
                 </div>
                 <div
                     className="Chinese__Main">
@@ -130,6 +149,7 @@ class Chinese extends React.Component {
                         className={`Chinese__TextImageContainer Container ${this.state.loading ? 'loadingSpinner' : ''}`}
                         style={!this.state.loading ? textImageStyle : {}}>
                     </div>
+                    {/* <img src={`${this.state.loading ? 'https://loading.io/assets/img/ajax.gif' : this.state.textImageUrl}`} /> */}
                     <div
                         className="Chinese__WordContainer">
                         {this.state.words.map((word, index) =>
