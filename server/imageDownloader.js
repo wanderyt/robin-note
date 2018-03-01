@@ -3,6 +3,8 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
+const {imageSave} = require('./imageSave');
+
 const {ids} = require('../src/config/ins-config.json');
 
 const imageDownloader = (app, {PROXY}) => {
@@ -33,26 +35,10 @@ const imageDownloader = (app, {PROXY}) => {
             }, function (response) {
                 if (response.statusCode === 200) {
                     try {
-                        let imgPath = `${process.cwd()}${path.sep}downloadImages${path.sep}${insName}`,
+                        let imgPath = `${process.cwd()}${path.sep}downloadImages${path.sep}${type === 'ins' ? insName : ''}`,
                             imgFullPath = `${imgPath}${path.sep}${name}`;
 
-                        if (!fs.existsSync(imgFullPath)) {
-                            mkdirp(imgPath, (err) => {
-                                var imageFile = fs.createWriteStream(imgFullPath);
-                                response.on("data", function(chunk){
-                                    imageFile.write(chunk);
-                                });
-                                response.on("end", function(){
-                                    console.log(`Save image ${name} success`);
-                                });
-                            });
-
-                            response.on("error", () => {
-                                console.error(`Save image ${name} failed`);
-                            })
-                        } else {
-                            console.log(`image ${name} has been saved before!`);
-                        }
+                        imageSave(response, name, imgPath, imgFullPath);
                     } catch(e) {
                         console.error(`Save image ${name} failed...`);
                     }
