@@ -35,7 +35,10 @@ class Instagram extends React.Component {
         // if insName is not changed, and also there are photos displayed, then do not update
         // once insName is changed, the photos will be cleared before new data is fetched(this.state.data.length == 0)
         if (this.state.insName === nextState.insName) {
-            if (this.state.data.length < nextState.data.length) {
+            if (this.state.data.length < nextState.data.length
+                || this.state.loading !== nextState.loading // loading status change
+                || this.state.imgUrl !== nextState.imgUrl // img overlay status change
+            ) {
                 return true;
             } else {
                 return false;

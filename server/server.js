@@ -13,5 +13,7 @@ const {insImageLoader} = require('./insImageLoader');
 insImageLoader(app, {PROXY});
 const {insSearchTopic} = require('./insSearchTopic');
 insSearchTopic(app, {PROXY});
+const {getTextImage} = require('./getTextImage');
+getTextImage(app, {PROXY});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
