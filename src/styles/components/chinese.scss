@@ -19,10 +19,16 @@
 
         .Chinese__TextContainer {
             background-image: url('../../images/mi.jpeg');
+            background-size: contain;
         }
 
         .loadingSpinner {
             background-image: url('../../images/Spinner.svg');
+        }
+
+        img {
+            height: 500px;
+            object-fit: contain;
         }
 
         .Chinese__WordContainer {

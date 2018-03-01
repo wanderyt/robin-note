@@ -9,9 +9,12 @@ const {imageSave} = require('./imageSave');
 const getTextImage = (app, {PROXY}) => {
     app.get('/api/ins/searchText', (req, res) => {
         let {searchText} = req.query,
-            path = INS_SEARCH_TEMPLATE.replace('{{searchText}}', encodeURI(searchText)),
+            url = INS_SEARCH_TEMPLATE.replace('{{searchText}}', encodeURI(searchText)),
             imgPath = `${process.cwd()}${path.sep}downloadImages${path.sep}${TEXT_IMAGE_URL_PREFIX}`,
             imgFullPath = `${imgPath}${path.sep}${searchText}.jpg`;
+
+        console.log('imgFullPath : ' + imgFullPath);
+        console.log('fs.existsSync(imgFullPath) : ' + fs.existsSync(imgFullPath));
 
         if (fs.existsSync(imgFullPath)) {
             console.error(`Image already saved!`);
@@ -24,7 +27,7 @@ const getTextImage = (app, {PROXY}) => {
             http.get({
                 host: PROXY.host,
                 port: PROXY.port,
-                path: path
+                path: url
             }, (response) => {
                 if (response.statusCode === 200) {
                     let data = '';
