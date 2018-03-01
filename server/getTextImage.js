@@ -63,12 +63,19 @@ const formatInsSearchTextData = (data) => {
     let insSearchData = data.graphql.hashtag.edge_hashtag_to_top_posts.edges,
         imgUrl = '',
         output = {
-            imageUrl: ''
+            imageUrl: '',
+            imageUrls: []
         };
 
     if (insSearchData.length > 0) {
         imgUrl = insSearchData[0].node.display_url;
         output.imageUrl = imgUrl;
+        let results = [];
+        results = insSearchData.reduce((acc, item) => {
+            item.node.display_url && acc.push(item.node.display_url);
+            return acc;
+        }, []);
+        output.imageUrls = results;
     }
 
     return output;

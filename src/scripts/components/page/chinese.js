@@ -28,11 +28,13 @@ class Chinese extends React.Component {
 
         this.state = {
             book: 3,
-            index: 0,
+            textIndex: 0,
             currentText,
             words,
             loading: true,
-            textImageUrl: ''
+            textImageUrl: '',
+            imageIndex: 0,
+            textImageUrls:[]
         };
     }
 
@@ -47,10 +49,11 @@ class Chinese extends React.Component {
             .get(`/api/ins/searchText?searchText=${searchText}`)
             .then(response => {
                 if (response.status === 200) {
-                    let {imageUrl} = response.data;
+                    let {imageUrl, imageUrls} = response.data;
                     if (imageUrl) {
                         this.setState({
-                            textImageUrl: imageUrl
+                            textImageUrl: imageUrl,
+                            textImageUrls: imageUrls
                         });
                     }
                 }
@@ -66,39 +69,40 @@ class Chinese extends React.Component {
     }
 
     switchText(flag) {
-        let index = this.state.index,
+        let textIndex = this.state.textIndex,
             chars = ChineseConfig['siwu'][this.state.book].char;
 
         switch (flag) {
             case 'prev':
-                --index;
-                if (index < 0) {
-                    index = chars.length - 1;
+                --textIndex;
+                if (textIndex < 0) {
+                    textIndex = chars.length - 1;
                 }
                 break;
             case 'next':
-                ++index;
-                if (index >= chars.length) {
-                    index = 0;
+                ++textIndex;
+                if (textIndex >= chars.length) {
+                    textIndex = 0;
                 }
                 break;
             case 'rand':
-                index = Math.floor(Math.random() * chars.length);
+                textIndex = Math.floor(Math.random() * chars.length);
                 break;
             case 'reset':
-                index = 0;
+                textIndex = 0;
                 break;
             default:
                 break;
         }
 
-        let currentText = chars[index],
+        let currentText = chars[textIndex],
             words = this.getWords(currentText);
 
         this.setState({
-            index,
+            textIndex,
             currentText,
             words,
+            imageIndex: 0,
             loading: true
         });
 
@@ -113,12 +117,38 @@ class Chinese extends React.Component {
         this.switchText('reset');
     }
 
+    switchImage(flag) {
+        let imageIndex = this.state.imageIndex,
+            textImageUrls = this.state.textImageUrls;
+
+        switch (flag) {
+            case 'prev':
+                --imageIndex;
+                if (imageIndex < 0) {
+                    imageIndex = textImageUrls.length - 1;
+                }
+                break;
+            case 'next':
+                ++imageIndex;
+                if (imageIndex >= textImageUrls.length) {
+                    imageIndex = 0;
+                }
+                break;
+            default:
+                break;
+        }
+
+        this.setState({
+            imageIndex
+        });
+    }
+
     render() {
         let textImageStyle;
 
-        if (this.state.textImageUrl) {
+        if (this.state.textImageUrls.length > 0) {
             textImageStyle = {
-                backgroundImage: `url(${this.state.textImageUrl})`
+                backgroundImage: `url(${this.state.textImageUrls[this.state.imageIndex]})`
             };
         }
         return (
@@ -148,6 +178,12 @@ class Chinese extends React.Component {
                     <div
                         className={`Chinese__TextImageContainer Container ${this.state.loading ? 'loadingSpinner' : ''}`}
                         style={!this.state.loading ? textImageStyle : {}}>
+                        <UIButton
+                            text="上一个图"
+                            handleClick={() => this.switchImage('prev')} />
+                        <UIButton
+                            text="下一个图"
+                            handleClick={() => this.switchImage('next')} />
                     </div>
                     {/* <img src={`${this.state.loading ? 'https://loading.io/assets/img/ajax.gif' : this.state.textImageUrl}`} /> */}
                     <div
