@@ -35,3 +35,12 @@ Add search box.
 Add load more.
 
 Add tag list.
+
+### 1.5.0
+
+Add chinese page.
+
+- Add chinese word book configuration.
+- Add chinese word display image.
+- Add chinese word related images.
+- Add dropdown list UI and book list selector.
