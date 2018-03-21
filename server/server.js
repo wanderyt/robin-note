@@ -15,5 +15,10 @@ const {insSearchTopic} = require('./insSearchTopic');
 insSearchTopic(app, {PROXY});
 const {getTextImage} = require('./getTextImage');
 getTextImage(app, {PROXY});
+// Add wacai login middleware
+// const {loginWacai} = require('./wacaiMiddleware');
+// app.use('/api/wacai', loginWacai);
+const {wacaiLoader} = require('./wacaiLoader');
+wacaiLoader(app);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
