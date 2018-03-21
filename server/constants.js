@@ -1,5 +1,7 @@
 const INS_QUERY_HASH = '472f257a40c653c64c666ce877d59d2b';
+const WACAI_SESSION = 'b82ec8b5da8e4336b39c216a4c61729c';
 
 module.exports = {
-    INS_QUERY_HASH
+    INS_QUERY_HASH,
+    WACAI_SESSION
 };
