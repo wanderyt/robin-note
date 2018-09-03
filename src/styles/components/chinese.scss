@@ -1,7 +1,7 @@
 .Chinese {
     .Chinese__Main {
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
 
         .Container {
             min-width: 500px;
@@ -37,12 +37,59 @@
             align-content: flex-start;
 
             .Chinese__WordMain {
-                font-size: 40px;
-                padding: 10px;
+                font-size: 80px;
+                padding: 0 10px;
+                margin: 0 10px 10px;
                 min-width: 100px;
-                line-height: 50px;
-                height: 50px;
+                line-height: 100px;
+                height: 100px;
+                cursor: pointer;
+
+                background-color: rgba($color: green, $alpha: 0.6);
+                border-radius: 20px;
             }
         }
+    }
+
+    // ui kit styles
+    .button {
+        line-height: 50px;
+        height: 50px;
+        width: 120px;
+        font-size: 20px;
+        border-radius: 10px;
+        box-shadow: 1px 1px 1px red;
+        margin: 10px 20px;
+
+        text-align: left;
+        text-indent: 20px;
+        width: 80px;
+    }
+    .longBtn {
+        width: 120px;
+    }
+    .iconBtn {
+        text-indent: 50px;
+        width: 120px;
+    }
+    .longIconBtn {
+        text-indent: 50px;
+        width: 160px;
+    }
+    .lediIcon {
+        background: url('../../images/themes/super-wings/ledi.png') 5px center no-repeat;
+        background-size: 40px;
+    }
+    .xiaoaiIcon {
+        background: url('../../images/themes/super-wings/xiaoai.png') 5px center no-repeat;
+        background-size: 40px;
+    }
+    .jingangIcon {
+        background: url('../../images/themes/super-wings/jingang.jpeg') 5px center no-repeat;
+        background-size: 50px;
+    }
+
+    .hidden {
+        display: none;
     }
 }

@@ -13,7 +13,7 @@ class Chinese extends React.Component {
         super();
 
         this.state = {
-            book: 3
+            book: '第三册'
         };
         this.initializeState();
 
@@ -27,7 +27,7 @@ class Chinese extends React.Component {
             words = this.getWords(currentText);
 
         this.state = {
-            book: 3,
+            book: '第三册',
             textIndex: 0,
             currentText,
             words,
@@ -39,12 +39,11 @@ class Chinese extends React.Component {
     }
 
     componentDidMount() {
-        let searchText = this.state.currentText,
-            words = this.state.words;
-        this.getRelatedImage(words.length > 0 ? words[0] : searchText);
+        let {currentText, words, book} = this.state;
+        this.getRelatedImage(words.length > 0 ? words[0] : currentText, book);
     }
 
-    getRelatedImage(searchText) {
+    getRelatedImage(searchText, book) {
         axios
             .get(`/api/ins/searchText?searchText=${searchText}`)
             .then(response => {
@@ -52,6 +51,7 @@ class Chinese extends React.Component {
                     let {imageUrl, imageUrls} = response.data;
                     if (imageUrl) {
                         this.setState({
+                            book: book || this.state.book,
                             textImageUrl: imageUrl,
                             textImageUrls: imageUrls
                         });
@@ -68,9 +68,10 @@ class Chinese extends React.Component {
         return wordList.filter(word => word.indexOf(text) > -1);
     }
 
-    switchText(flag) {
+    switchText(flag, book) {
         let textIndex = this.state.textIndex,
-            chars = ChineseConfig['siwu'][this.state.book].char;
+            currentBook = book || this.state.book,
+            chars = ChineseConfig['siwu'][currentBook].char;
 
         switch (flag) {
             case 'prev':
@@ -106,15 +107,11 @@ class Chinese extends React.Component {
             loading: true
         });
 
-        this.getRelatedImage(words.length > 0 ? words[0] : currentText);
+        this.getRelatedImage(words.length > 0 ? words[0] : currentText, currentBook);
     }
 
     changeBook(value) {
-        this.setState({
-            book: value
-        });
-
-        this.switchText('reset');
+        this.switchText('reset', value);
     }
 
     switchImage(flag) {
@@ -143,30 +140,45 @@ class Chinese extends React.Component {
         });
     }
 
+    changeTextImage(word) {
+        this.setState({
+            loading: true
+        });
+
+        this.getRelatedImage(word);
+    }
+
     render() {
         let textImageStyle;
 
-        if (this.state.textImageUrls.length > 0) {
+        if (this.state.textImageUrls && this.state.textImageUrls.length > 0) {
             textImageStyle = {
                 backgroundImage: `url(${this.state.textImageUrls[this.state.imageIndex]})`
             };
-        }
+        }/* TODO: else if (this.state.textImageUrl) {
+            textImageStyle = {
+                backgroundImage: `url(${this.state.textImageUrls[this.state.imageIndex]})`
+            };
+        } */
         return (
             <div
                 className="Chinese">
                 <div className="Chinese__Header">
                     <span className="Chinese__HeaderText">学汉字</span>
                     <UIButton
+                        classNames="button iconBtn lediIcon"
                         text="换一个"
                         handleClick={() => this.switchText('rand')} />
                     <UIButton
+                        classNames="button iconBtn xiaoaiIcon"
                         text="上一个"
                         handleClick={() => this.switchText('prev')} />
                     <UIButton
+                        classNames="button iconBtn jingangIcon"
                         text="下一个"
                         handleClick={() => this.switchText('next')} />
                     <UIDropdown
-                        options={[3,4,5]}
+                        options={['第三册','第四册','第五册']}
                         onChange={e => this.changeBook(e.target.value)} />
                 </div>
                 <div
@@ -175,13 +187,17 @@ class Chinese extends React.Component {
                         className="Chinese__TextContainer Container">
                         <span className="Chinese__TextMain">{this.state.currentText}</span>
                     </div>
-                    <div
-                        className={`Chinese__TextImageContainer Container ${this.state.loading ? 'loadingSpinner' : ''}`}
-                        style={!this.state.loading ? textImageStyle : {}}>
+                    <div>
+                        <div
+                            className={`Chinese__TextImageContainer Container ${this.state.loading ? 'loadingSpinner' : ''}`}
+                            style={!this.state.loading ? textImageStyle : {}} />
+
                         <UIButton
+                            classNames="button longBtn"
                             text="上一个图"
                             handleClick={() => this.switchImage('prev')} />
                         <UIButton
+                            classNames="button longBtn"
                             text="下一个图"
                             handleClick={() => this.switchImage('next')} />
                     </div>
@@ -190,7 +206,8 @@ class Chinese extends React.Component {
                         className="Chinese__WordContainer">
                         {this.state.words.map((word, index) =>
                             <div className="Chinese__WordMain"
-                                key={index}>
+                                key={index}
+                                onClick={() => this.changeTextImage(word)}>
                                 {word}
                             </div>
                         )}
