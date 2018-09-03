@@ -1,5 +1,6 @@
 const https = require('https'),
       _ = require('underscore'),
+      request = require('request'),
       DETAILS_HOST = 'www.wacai.com',
       DETAILS_PATH = `/biz/ledger_list.action`;
 
@@ -26,50 +27,31 @@ class WacaiModel {
                 'cond.withDaySum': true,
                 'pageInfo.pageIndex': props.pageIndex || 1,
                 'cond.reimbursePrefer': 0
-            },
-            options = {
-                host: DETAILS_HOST,
-                port: 443,
-                path: `${DETAILS_PATH}?timsmp=${new Date().getTime()}`,
+            };
+
+        let self = this;
+        let dataPromise = new Promise((resolve, reject) => {
+            request({
+                url: `https://${DETAILS_HOST}:443${DETAILS_PATH}?timsmp=${new Date().getTime()}`,
                 method: 'POST',
+                body: self.formatPostFormData(postData),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'Content-Length': Buffer.byteLength(this.formatPostFormData(postData)),
-                    'Cookie': `wctk=${this.sessionId}`
+                    'Content-Length': Buffer.byteLength(self.formatPostFormData(postData)),
+                    'Cookie': `wctk=${self.sessionId}`
                 }
-            },
-            dataDefer = Promise.defer(),
-            req = https.request(options, (res) => {
-                let result = '';
-                res.on('data', (d) => {
-                    var data = d.toString('utf8');
-                    result = result + data;
-                });
-                res.on('end', () => {
-                    try {
-                        dataDefer.resolve(JSON.parse(result));
-                    } catch (e) {
-                        console.error('result is not a valid object');
-                        dataDefer.resolve({});
-                    };
-                });
-                res.on('error', () => {
-                    console.log(`problem with data fetch!`);
-                    dataDefer.reject({});
-                });
+            }, (error, response, body) => {
+                console.log(`WacaiModel.fetchData returns...`);
+                if (response) {
+                    console.log(`WacaiModel.fetchData returns: ${response.statusCode}`);
+                    resolve(typeof body === 'string' ? JSON.parse(body) : body);
+                } else {
+                    reject({});
+                }
             });
-
-        req.on('error', (e) => {
-            console.log(`problem with request: ${e.message}`);
-            dataDefer.reject(e);
         });
 
-        // write data to request body
-        console.log(this.formatPostFormData(postData));
-        req.write(this.formatPostFormData(postData));
-        req.end();
-
-        return dataDefer.promise;
+        return dataPromise;
     }
 
     formatPostFormData (data = {}) {
@@ -77,7 +59,13 @@ class WacaiModel {
     }
 
     appendData(data = {}) {
-        this.finData = this.finData.concat(data.ledgers);
+        let fullData = data.ledgers;
+        let shortenedData = fullData.map(({comment, typeTitle, money, date, id}) => {
+            return {
+                comment, typeTitle, money, date, id
+            }
+        })
+        this.finData = this.finData.concat(shortenedData);
     }
 }
 
