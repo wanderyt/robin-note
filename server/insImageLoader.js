@@ -1,6 +1,6 @@
-const {INS_QUERY_HASH} = require('./constants');
+const {INS_QUERY_HASH, SESSIONID} = require('./constants');
 const {ids} = require('../src/config/ins-config.json');
-const http = require('http');
+const request = require('request');
 const INS_IMAGE_TEMPLATE = `https://www.instagram.com/graphql/query/?query_hash=${INS_QUERY_HASH}&variables={"id":{{id}},"first":{{offset}}{{nextTimeHash}}}`
 
 const insImageLoader = (app, {PROXY}) => {
@@ -16,36 +16,22 @@ const insImageLoader = (app, {PROXY}) => {
 
         console.log(path);
 
-        http.get({
-            host: PROXY.host,
-            port: PROXY.port,
-            path: encodeURI(path)
-        }, (response) => {
-            if (response.statusCode === 200) {
-                let data = '';
-                response.on('data', (chunk) => data+=chunk);
-                response.on('end', () => {
-                    try {
-                        let output = formatInsImageData(JSON.parse(data));
-                        res.setHeader('Content-Type', 'application/json');
-                        console.log(`Fetch Instagram data success...`);
-                        res.json(output);
-                    } catch(e) {
-                        console.log(e);
-                        res.setHeader('Content-Type', 'application/json');
-                        res.json({});
-                    }
-                });
-
-                response.on('error', () => {
-                    console.error(`Fetch Instagram data error...`);
-                    res.statusCode = 500;
-                    res.send('fail');
-                });
+        request({
+            url: encodeURI(path),
+            method: 'get',
+            headers: {
+                'Cookie': `sessionid=${SESSIONID};`
+            }
+        }, (error, response, body) => {
+            console.log(`Fetch Instagram data:`);
+            console.log(error || body);
+            if (response) {
+                console.log(`Fetch Instagram data: ${response.statusCode}`);
+                res.statusCode = response.statusCode;
+                let output = formatInsImageData(JSON.parse(body));
+                res.json(output);
             } else {
-                console.error(`Fetch Instagram data error...`);
-                res.statusCode = 500;
-                res.send('fail');
+                res.json({});
             }
         });
     });

@@ -151,11 +151,15 @@ class Chinese extends React.Component {
     render() {
         let textImageStyle;
 
-        if (this.state.textImageUrls.length > 0) {
+        if (this.state.textImageUrls && this.state.textImageUrls.length > 0) {
             textImageStyle = {
                 backgroundImage: `url(${this.state.textImageUrls[this.state.imageIndex]})`
             };
-        }
+        }/* TODO: else if (this.state.textImageUrl) {
+            textImageStyle = {
+                backgroundImage: `url(${this.state.textImageUrls[this.state.imageIndex]})`
+            };
+        } */
         return (
             <div
                 className="Chinese">
