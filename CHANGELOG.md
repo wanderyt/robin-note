@@ -1,26 +1,22 @@
 # robin-note
 
-### 1.0.0
+### 1.6.0
 
-Initial version
+Add Finance page.
 
-### 1.2.0
+- Add wacai data fetch.
+- Use request to replace https / http node module.
+- Introduce jest & enzyme.
+- Fix some bugs.
 
-Add redux for testing.
+### 1.5.0
 
-Add login related features.
+Add chinese page.
 
-- Motivated by `context` mechanism.
-
-Add lazyload image page.
-
-- Attached in Paint menu item.
-
-### 1.3.0
-
-Add horizontal menu bar feature.
-
-Add button to switch between horizontal menu bar and vertical menu bar.
+- Add chinese word book configuration.
+- Add chinese word display image.
+- Add chinese word related images.
+- Add dropdown list UI and book list selector.
 
 ### 1.4.0
 
@@ -36,11 +32,24 @@ Add load more.
 
 Add tag list.
 
-### 1.5.0
+### 1.3.0
 
-Add chinese page.
+Add horizontal menu bar feature.
 
-- Add chinese word book configuration.
-- Add chinese word display image.
-- Add chinese word related images.
-- Add dropdown list UI and book list selector.
+Add button to switch between horizontal menu bar and vertical menu bar.
+
+### 1.2.0
+
+Add redux for testing.
+
+Add login related features.
+
+- Motivated by `context` mechanism.
+
+Add lazyload image page.
+
+- Attached in Paint menu item.
+
+### 1.0.0
+
+Initial version
