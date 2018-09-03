@@ -1,9 +1,10 @@
 @import './colors.scss';
+@import './font';
 
 * {
     box-sizing: border-box;
     // HelveticaNeue
-    font-family: Monaco;
+    // font-family: Monaco;
     margin: 0;
     padding: 0;
 }

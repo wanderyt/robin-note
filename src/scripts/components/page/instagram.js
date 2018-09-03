@@ -82,7 +82,7 @@ class Instagram extends React.Component {
                         });
                     } else {
                         this.setState({
-                            loading: true
+                            loading: false
                         });
                     }
                 });
@@ -160,7 +160,7 @@ class Instagram extends React.Component {
     }
 
     render() {
-        let tagList = InsList.slice(0, 10);
+        let tagList = InsList.slice(0, 20);
         return (
             <div
                 className="Instagram">

@@ -1,6 +1,8 @@
 @import '../colors';
 
 .MenuBar {
+    font-family: Monaco;
+
     height: 50px;
     display: flex;
     background-color: $menu-background;
