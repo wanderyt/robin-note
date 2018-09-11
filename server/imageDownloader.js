@@ -1,13 +1,14 @@
 const mkdirp = require('mkdirp');
+const request = require('request');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const {imageSave} = require('./imageSave');
+const {imageSave, imageSaveByRequest} = require('./imageSave');
 
 const {ids} = require('../src/config/ins-config.json');
 
-const imageDownloader = (app, {PROXY}) => {
+const imageDownloader = (app) => {
     app.get('/api/downloadPicture', (req, resp) => {
         let {img, id, type, insName} = req.query;
 
@@ -27,11 +28,35 @@ const imageDownloader = (app, {PROXY}) => {
         resp.send('success');
 
         try {
+            // request({
+            //     url: url,
+            //     headers: {
+            //         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+            //     }
+            // }, (error, response, body) => {
+            //     console.log(`image download:`);
+            //     // console.log(error || body);
+            //     if (response) {
+            //         // console.log(response);
+            //         try {
+            //             let imgPath = `${process.cwd()}${path.sep}downloadImages${path.sep}${type === 'ins' ? insName : ''}`,
+            //                 imgFullPath = `${imgPath}${path.sep}${name}`;
+
+            //                 imageSaveByRequest(response.body, name, imgPath, imgFullPath);
+            //         } catch(e) {
+            //             console.error(`Save image ${name} failed...`);
+            //         }
+            //         resp.statusCode = response.statusCode;
+            //         resp.json({});
+            //     } else {
+            //         console.error(`Cannot fetch image ${name}...`);
+            //         resp.statusCode = 500;
+            //         resp.json({});
+            //     }
+            // });
+
             http.get ({
-                host: PROXY.host,
-                port: PROXY.port,
-                path: url,
-                timeout: 1000
+                path: url
             }, function (response) {
                 if (response.statusCode === 200) {
                     try {

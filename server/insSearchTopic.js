@@ -1,7 +1,7 @@
 const http = require('http');
 const INS_SEARCH_TEMPLATE = `https://www.instagram.com/web/search/topsearch/?context=blended&query={{searchString}}`
 
-const insSearchTopic = (app, {PROXY}) => {
+const insSearchTopic = (app) => {
     app.get('/api/ins/search', (req, res) => {
         let {searchString} = req.query,
             path = INS_SEARCH_TEMPLATE.replace('{{searchString}}', searchString);
@@ -9,8 +9,6 @@ const insSearchTopic = (app, {PROXY}) => {
         console.log(path);
 
         http.get({
-            host: PROXY.host,
-            port: PROXY.port,
             path: encodeURI(path)
         }, (response) => {
             if (response.statusCode === 200) {
