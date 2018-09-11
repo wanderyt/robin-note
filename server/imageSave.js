@@ -1,7 +1,7 @@
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 
-const imageSave = (response, name, imagePath, imageFullPath) => {
+const imageSaveByHTTPResponse = (response, name, imagePath, imageFullPath) => {
     if (!fs.existsSync(imageFullPath)) {
         mkdirp(imagePath, (err) => {
             var imageFile = fs.createWriteStream(imageFullPath);
@@ -21,6 +21,29 @@ const imageSave = (response, name, imagePath, imageFullPath) => {
     }
 }
 
+const imageSaveByRequest = (imgData, name, imagePath, imageFullPath) => {
+    if (!fs.existsSync(imageFullPath)) {
+        mkdirp(imagePath, (err) => {
+            // var imageFile = fs.createWriteStream(imageFullPath);
+            // imageFile.write(imgData, 'binary');
+            // imageFile.once('drain', () => {
+            //     console.log(`Save image ${name} success`);
+            // });
+            fs.writeFile(imageFullPath, imgData, 'binary', (err) => {
+                if (err) {
+                    console.log(`Error occured when saving image ${name}!`);
+                } else {
+                    console.log(`Save image ${name} success`);
+                }
+            })
+        });
+    } else {
+        console.log(`image ${name} has been saved before!`);
+    }
+}
+
+
 module.exports = {
-    imageSave
+    imageSave: imageSaveByHTTPResponse,
+    imageSaveByRequest
 };

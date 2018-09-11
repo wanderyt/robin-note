@@ -1,5 +1,11 @@
 # robin-note
 
+### 1.7.0
+
+Refactor request lib.
+
+- Remove VPN host
+
 ### 1.6.0
 
 Add Finance page.
