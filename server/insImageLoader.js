@@ -3,7 +3,7 @@ const {ids} = require('../src/config/ins-config.json');
 const request = require('request');
 const INS_IMAGE_TEMPLATE = `https://www.instagram.com/graphql/query/?query_hash=${INS_QUERY_HASH}&variables={"id":{{id}},"first":{{offset}}{{nextTimeHash}}}`
 
-const insImageLoader = (app, {PROXY}) => {
+const insImageLoader = (app) => {
     app.get('/api/ins/images', (req, res) => {
         let {id, offset = 20, nextTimeHash} = req.query,
             objId = (ids.find(el => el.name == id)).id,
@@ -24,14 +24,28 @@ const insImageLoader = (app, {PROXY}) => {
             }
         }, (error, response, body) => {
             console.log(`Fetch Instagram data:`);
-            console.log(error || body);
+            // console.log(error || body);
             if (response) {
-                console.log(`Fetch Instagram data: ${response.statusCode}`);
+                console.log(`Fetch Instagram data status code: ${response.statusCode}`);
                 res.statusCode = response.statusCode;
                 let output = formatInsImageData(JSON.parse(body));
+                res.statusCode = response.statusCode;
                 res.json(output);
             } else {
-                res.json({});
+                res.statusCode = 500;
+                if (typeof error === 'object') {
+                    res.json({
+                        error: {
+                            code: error.code
+                        }
+                    });
+                } else {
+                    res.json({
+                        error: {
+                            code: 'GENERIC_ERROR'
+                        }
+                    });
+                }
             }
         });
     });

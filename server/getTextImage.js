@@ -6,7 +6,7 @@ const INS_SEARCH_TEMPLATE = `https://www.instagram.com/explore/tags/{{searchText
 const TEXT_IMAGE_URL_PREFIX = 'textImage';
 const {imageSave} = require('./imageSave');
 
-const getTextImage = (app, {PROXY}) => {
+const getTextImage = (app) => {
     app.get('/api/ins/searchText', (req, res) => {
         let {searchText} = req.query,
             url = INS_SEARCH_TEMPLATE.replace('{{searchText}}', encodeURI(searchText)),
@@ -26,8 +26,6 @@ const getTextImage = (app, {PROXY}) => {
             });
         } else {
             http.get({
-                host: PROXY.host,
-                port: PROXY.port,
                 path: url
             }, (response) => {
                 if (response.statusCode === 200) {
@@ -82,10 +80,8 @@ const formatInsSearchTextData = (data) => {
     return output;
 }
 
-const saveImage = (url, PROXY, imgPath, imgFullPath) => {
+const saveImage = (url, imgPath, imgFullPath) => {
     http.get({
-        host: PROXY.host,
-        port: PROXY.port,
         path: path
     }, (response) => {
         imageSave(response, imgPath, imgFullPath);

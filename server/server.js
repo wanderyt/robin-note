@@ -2,22 +2,17 @@ const express = require('express');
 
 const app = express();
 const port = process.env.PORT || 5000;
-// Proxy for China
-const PROXY = {
-    host: 'dub-entbc-001',
-    port: 80
-};
 
 app.use(express.json());
 
 const {imageDownloader} = require('./imageDownloader');
-imageDownloader(app, {PROXY});
+imageDownloader(app);
 const {insImageLoader} = require('./insImageLoader');
-insImageLoader(app, {PROXY});
+insImageLoader(app);
 const {insSearchTopic} = require('./insSearchTopic');
-insSearchTopic(app, {PROXY});
+insSearchTopic(app);
 const {getTextImage} = require('./getTextImage');
-getTextImage(app, {PROXY});
+getTextImage(app);
 const {insLogin} = require('./insLogin');
 insLogin(app);
 // Add wacai login middleware

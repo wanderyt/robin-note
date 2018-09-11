@@ -21,11 +21,9 @@ let img = images.images[0],
     imgName = img.split('media/')[1],
     url = `https://pbs.twimg.com/media/${imgName}:large`;
 
-const testFileDownloader = (app, {PROXY}) => {
+const testFileDownloader = (app) => {
     app.get('/api/test/imageDownload', (req, res) => {
         http.get ({
-            host: PROXY.host,
-            port: PROXY.port,
             path: url
         }, function (response) {
             // send response before file process
