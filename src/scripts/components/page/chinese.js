@@ -178,6 +178,7 @@ class Chinese extends React.Component {
                         text="下一个"
                         handleClick={() => this.switchText('next')} />
                     <UIDropdown
+                        classNames="book__selection"
                         options={['第三册','第四册','第五册']}
                         onChange={e => this.changeBook(e.target.value)} />
                 </div>

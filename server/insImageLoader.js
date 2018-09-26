@@ -1,5 +1,6 @@
 const {INS_QUERY_HASH, SESSIONID} = require('./constants');
 const {ids} = require('../src/config/ins-config.json');
+const {downloadImage} = require('./helpers/image-download');
 const request = require('request');
 const INS_IMAGE_TEMPLATE = `https://www.instagram.com/graphql/query/?query_hash=${INS_QUERY_HASH}&variables={"id":{{id}},"first":{{offset}}{{nextTimeHash}}}`
 
@@ -28,7 +29,11 @@ const insImageLoader = (app) => {
             if (response) {
                 console.log(`Fetch Instagram data status code: ${response.statusCode}`);
                 res.statusCode = response.statusCode;
-                let output = formatInsImageData(JSON.parse(body));
+                let {output} = formatInsImageData(JSON.parse(body), id);
+
+                // download images
+                // downloadImages(imageList);
+
                 res.statusCode = response.statusCode;
                 res.json(output);
             } else {
@@ -51,13 +56,14 @@ const insImageLoader = (app) => {
     });
 };
 
-const formatInsImageData = (data) => {
+const formatInsImageData = (data, insName) => {
     let insImageData = data.data.user.edge_owner_to_timeline_media.edges,
         output = {
             nextCursor: data.data.user.edge_owner_to_timeline_media.page_info.end_cursor,
             hasNext: data.data.user.edge_owner_to_timeline_media.page_info.has_next_page,
             data: []
-        };
+        },
+        imageList = [];
 
     for (const item in insImageData) {
         let d = {},
@@ -77,12 +83,35 @@ const formatInsImageData = (data) => {
                 desc: imageData.edge_media_to_caption.edges.length > 0 ? imageData.edge_media_to_caption.edges[0].node.text : '',
                 imgFullUrl: imageData.display_url
             });
+            imageList.push({
+                insName,
+                id: imageData.id,
+                url: imageData.display_url
+            });
             output.data.push(d);
         }
     }
 
-    return output;
+    return {
+        output,
+        imageList
+    };
 }
+
+/**
+ * Download image one by one
+ * Poor performance
+ * @param {*} imageList
+ */
+const downloadImages = async (imageList) => {
+    for (const idx in imageList) {
+        const item = imageList[idx];
+        console.log(item);
+        console.log(`start download: ${item.url}`);
+        await downloadImage(item);
+        console.log(`finish download: ${item.url}`);
+    }
+};
 
 module.exports = {
     insImageLoader
