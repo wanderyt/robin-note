@@ -1,7 +1,7 @@
 const
     { WacaiModel } = require('../models/wacai_model'),
     fs = require('fs'),
-    { WACAI_SESSION } = process.env || require('../../constants'),
+    { WACAI_SESSION } = process.env,
     mkdirp = require('mkdirp'),
     path = require('path');
 
