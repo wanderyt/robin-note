@@ -1,4 +1,4 @@
-const {INS_QUERY_HASH, SESSIONID} = require('./constants');
+const {INS_QUERY_HASH, SESSIONID} = process.env || require('./constants');
 const {ids} = require('../src/config/ins-config.json');
 const {downloadImage} = require('./helpers/image-download');
 const request = require('request');
