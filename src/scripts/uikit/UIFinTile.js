@@ -6,10 +6,6 @@ import UIDateStamp from './UIDateStamp';
 import '../../styles/uikit/UIFinTile.scss'
 
 class UIFinTile extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="UIFinTile">

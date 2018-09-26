@@ -26,7 +26,7 @@ class UIDatestampYear extends React.Component {
 
 UIDatestampYear.displayName = "UIDatestampYear";
 UIDatestampYear.propTypes = {
-    style: PropTypes.string,
+    pattern: PropTypes.string,
     value: PropTypes.string
 };
 
@@ -69,9 +69,9 @@ class UII18NDateFormatter extends React.Component {
         let date = new Date(this.props.value),
             value;
 
-        if (this.props.style === 'weekday_short') {
+        if (this.props.pattern === 'weekday_short') {
             value = this.WEEKDAY_MAP[date.getDay()];
-        } else if (this.props.style === 'datestamp_month_day') {
+        } else if (this.props.pattern === 'datestamp_month_day') {
             value = this.MONTH_MAP[date.getMonth()] + ' ' + this.padZero(date.getDate());
         }
         return (
@@ -84,7 +84,7 @@ class UII18NDateFormatter extends React.Component {
 
 UII18NDateFormatter.displayName = "UII18NDateFormatter";
 UII18NDateFormatter.propTypes = {
-    style: PropTypes.string,
+    pattern: PropTypes.string,
     value: PropTypes.string
 };
 
@@ -118,7 +118,7 @@ class UIDateStamp extends React.Component {
                     <section
                         className={`date-stamp-day ${isTBD ? 'date-stamp-day-isTBD' : ' '}`}>
                         {
-                            !isTBD && <UII18NDateFormatter style='weekday_short' value={this.props.dateLocal} />
+                            !isTBD && <UII18NDateFormatter pattern='weekday_short' value={this.props.dateLocal} />
                         }
                         {
                             !isTBD && isMultiDays && '+'
@@ -128,7 +128,7 @@ class UIDateStamp extends React.Component {
                         (!isTBD) &&
                         <section
                             className={`date-stamp-month-dd`}>
-                            <UII18NDateFormatter style='datestamp_month_day' value={this.props.dateLocal} />
+                            <UII18NDateFormatter pattern='datestamp_month_day' value={this.props.dateLocal} />
                             {
                                 isMultiDays ? '-' : ''
                             }
@@ -141,14 +141,14 @@ class UIDateStamp extends React.Component {
                         (!isTBD && isMultiMonths) &&
                         <section
                             className={`date-stamp-month-dd`}>
-                            <UII18NDateFormatter style='datestamp_month_day' value={this.props.toDateLocal} />
+                            <UII18NDateFormatter pattern='datestamp_month_day' value={this.props.toDateLocal} />
                         </section>
                     }
                     <section
                         className={`date-stamp-month-dd`}>
                         <UIDatestampYear
                             display='future'
-                            style='datestamp_month_day'
+                            pattern='datestamp_month_day'
                             value={this.props.toDateLocal || this.props.dateLocal} />
                     </section>
                 </section>
