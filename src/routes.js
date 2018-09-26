@@ -1,5 +1,5 @@
 // ./src/routes.js
-import React  from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Number from './scripts/components/page/number';
 import Paint from './scripts/components/page/paint';
@@ -8,6 +8,8 @@ import Chinese from './scripts/components/page/chinese';
 import Default from './scripts/components/default';
 import Finance from './scripts/components/page/finance';
 import FacebookLogin from './scripts/components/page/facebookLogin';
+import TestCounter from './scripts/components/page/testCounter';
+import Colors from './scripts/components/page/colors';
 
 export default (props) => (
     <div>
@@ -19,5 +21,7 @@ export default (props) => (
         <Route path="/chinese" component={Chinese}></Route>
         <Route path="/finance" component={Finance}></Route>
         <Route path="/facebookLogin" component={FacebookLogin}></Route>
+        <Route path="/testCounter" component={TestCounter}></Route>
+        <Route path="/colors" component={Colors}></Route>
     </div>
 );
