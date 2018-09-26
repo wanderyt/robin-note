@@ -2,15 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class UIDropdown extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         var options = this.props.options || [];
         return (
             <div
-                className="UIDropdown">
+                className={`UIDropdown ${this.props.classNames || ''}`}>
                 <label className="UIDropdown__Label">
                     <span className="UIDropdown__LabelText">{this.props.label}</span>
                     <select

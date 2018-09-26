@@ -35,7 +35,7 @@ class Finance extends React.Component {
 
             axios(`/api/wacai/loadData?fromDate=${fromDate}&toDate=${toDate}`)
                 .then(function(res) {
-                    if (res.status = 200 && res.data && res.data.data && res.data.data.length > 0) {
+                    if (res.status === 200 && res.data && res.data.data && res.data.data.length > 0) {
                         this.setState({
                             loadStatus: true,
                             finData: res.data.data

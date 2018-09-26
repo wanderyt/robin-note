@@ -1,20 +1,32 @@
+@import '../breakpoints';
+
 .Chinese {
+    @media only screen
+        and (max-width: $breakpoint-medium) {
+        .Chinese__HeaderText {
+            display: none;
+        }
+    }
+
     .Chinese__Main {
         display: flex;
         flex-wrap: wrap;
 
-        .Container {
-            min-width: 500px;
-            width: 500px;
-            height: 500px;
+        @media only screen
+            and (min-width: $breakpoint-medium) {
+            .Container {
+                min-width: 500px;
+                width: 500px;
+                height: 500px;
 
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
 
-            text-align: center;
-            line-height: 500px;
-            font-size: 400px;
+                text-align: center;
+                line-height: 500px;
+                font-size: 400px;
+            }
         }
 
         .Chinese__TextContainer {
@@ -68,10 +80,22 @@
     .longBtn {
         width: 120px;
     }
+
     .iconBtn {
         text-indent: 50px;
         width: 120px;
+
+        @media only screen
+            and (max-width: $breakpoint-medium) {
+            & {
+                text-indent: 0px;
+                width: 70px;
+                background: none !important;
+                text-align: center;
+            }
+        }
     }
+
     .longIconBtn {
         text-indent: 50px;
         width: 160px;
@@ -89,7 +113,47 @@
         background-size: 50px;
     }
 
+    @media only screen
+        and (max-width: $breakpoint-medium) {
+        .book__selection {
+            display: none;
+        }
+    }
+
     .hidden {
         display: none;
+    }
+
+    // media query
+    @media screen and (max-width: $breakpoint-small) {
+        .Container {
+            width: 250px;
+            height: 250px;
+
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+
+            text-align: center;
+            line-height: 250px;
+            font-size: 200px;
+        }
+    }
+
+    @media screen
+        and (min-width: $breakpoint-small)
+        and (max-width: $breakpoint-medium) {
+        .Container {
+            width: 400px;
+            height: 400px;
+
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+
+            text-align: center;
+            line-height: 400px;
+            font-size: 350px;
+        }
     }
 }
