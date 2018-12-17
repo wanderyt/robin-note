@@ -172,7 +172,7 @@ class Instagram extends React.Component {
                             text={`${this.state.isLoadMoreOn ? 'Turn off load more' : 'Turn on load more'}`}
                             handleClick={this.toggleLoadMore} />
                         <UISearchBox
-                            ajaxUrl="/api/ins/search" />
+                            ajaxUrl="/api/ins/searchUser" />
                     </div>
                     <div className="Instagram__TopHitTags">
                         {tagList.map((el) => {

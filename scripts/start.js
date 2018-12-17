@@ -29,6 +29,13 @@ const {
 const openBrowser = require('react-dev-utils/openBrowser');
 const paths = require('../config/paths');
 const config = require('../config/webpack.config.dev');
+
+// Add test app configuration
+if (process.env.TEST_ENV === "true") {
+  config.entry.pop();
+  config.entry.push(paths.appTestIndexJs);
+}
+
 const createDevServerConfig = require('../config/webpackDevServer.config');
 
 const useYarn = fs.existsSync(paths.yarnLockFile);

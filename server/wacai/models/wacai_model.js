@@ -18,7 +18,7 @@ class WacaiModel {
         return `${current.getFullYear()}-${month}-${day}`;
     }
 
-    fetchData(props = {}) {
+    fetchData(props = {}, options) {
         console.log('WacaiModel.fetchData is executing...');
 
         let postData = {
@@ -38,15 +38,19 @@ class WacaiModel {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Content-Length': Buffer.byteLength(self.formatPostFormData(postData)),
-                    'Cookie': `wctk=${self.sessionId}`
+                    // 'Cookie': `wctk=${self.sessionId}`
+                    'Cookie': options.cookies
                 }
             }, (error, response, body) => {
+                console.log(response.headers);
                 console.log(`WacaiModel.fetchData returns...`);
                 if (response) {
                     console.log(`WacaiModel.fetchData returns: ${response.statusCode}`);
                     resolve(typeof body === 'string' ? JSON.parse(body) : body);
                 } else {
-                    reject({});
+                    reject({
+                        error
+                    });
                 }
             });
         });
