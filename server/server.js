@@ -1,8 +1,13 @@
 const express = require('express');
 
-// Dotenv
+// Dotenv configuration
 const dotenv = require('dotenv');
-dotenv.config();
+const {dotenvFiles} = require('./config');
+dotenvFiles.map((dotenvFile) => {
+  dotenv.config({
+    path: dotenvFile
+  });
+});
 
 const app = express();
 const port = process.env.API_PORT || 5000;
@@ -28,6 +33,9 @@ const wacaiMiddleware = require('./wacai/middlewares/index');
 app.use('/api/proxy/wacai', [wacaiMiddleware.wacaiLoginMiddleware, ...wacaiRouters.router]);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+console.log('env prop ENABLE_LOG: ' + process.env.ENABLE_LOG);
+console.log('env prop TEST_INS: ' + process.env.TEST_INS);
 
 // https server
 // const https = require('https');
