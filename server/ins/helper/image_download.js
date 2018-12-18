@@ -1,5 +1,5 @@
 const path = require('path');
-const paths = require('../helpers/paths');
+const paths = require('../../helpers/paths');
 const https = require('https');
 const request = require('request');
 const {imageSave, imageSaveByRequest} = require('./image_save');

@@ -8,7 +8,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "m": "concurrently --kill-others-on-fail \"node server/server.js\" \"npm run start\"",
-    "server": "node server/server.js",
+    "server": "node server/index.js",
     "server-debug": "node --inspect server/server.js",
     "mytest": "jest",
     "testApp": "TEST_ENV=true npm run m"
@@ -129,6 +129,8 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "enzyme-to-json": "^3.3.1"
+    "enzyme-to-json": "^3.3.1",
+    "gulp": "^4.0.0",
+    "gulp-nodemon": "^2.4.2"
   }
 }

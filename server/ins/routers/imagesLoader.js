@@ -4,7 +4,7 @@ const request = require('request');
 const fs = require('fs');
 
 const {INS_QUERY_HASH, SESSIONID} = process.env;
-const {ids} = require('../src/config/ins-config.json');
+const {ids} = require('../../../src/config/ins-config.json');
 const INS_IMAGE_TEMPLATE = `https://www.instagram.com/graphql/query/?query_hash=${INS_QUERY_HASH}&variables={"id":{{id}},"first":{{offset}}{{nextTimeHash}}}`
 
 router.get('/images', (req, res) => {
