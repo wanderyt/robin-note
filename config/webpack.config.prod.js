@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
@@ -136,7 +137,7 @@ module.exports = {
           // "url" loader works just like "file" loader but it also embeds
           // assets smaller than specified size as data URLs to avoid requests.
           {
-            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
             loader: require.resolve('url-loader'),
             options: {
               limit: 10000,
@@ -283,6 +284,20 @@ module.exports = {
       },
       sourceMap: shouldUseSourceMap,
     }),
+
+    // Minify the code from webpack 4.
+    // https://stackoverflow.com/questions/49053215/webpack-4-how-to-configure-minimize
+    // we specify a custom UglifyJsPlugin here to get source maps in production
+    // new UglifyJsPlugin({
+    //   cache: true,
+    //   parallel: true,
+    //   uglifyOptions: {
+    //     compress: false,
+    //     ecma: 6,
+    //     mangle: true
+    //   },
+    //   sourceMap: true
+    // }),
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({
       filename: cssFilename,

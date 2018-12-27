@@ -28,3 +28,6 @@ package-lock.json
 
 # wacai log
 /server/wacai/files
+
+# storybook
+.cache
