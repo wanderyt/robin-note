@@ -1,5 +1,21 @@
 # robin-note
 
+### 2.0.0
+
+DotEnv, Gulp, Storybook configuration.
+
+Detailed changes:
+
+- Add colors page.
+- Add responsive css.
+- Add dotenv configuration support.
+- Add test job.
+- Add gulp configuration for server code.
+- Add storybook configuration.
+- Add chart component.
+- Use request instead of http / https, and refactor server code.
+- Refactor client code structure.
+
 ### 1.7.0
 
 Refactor request lib.
