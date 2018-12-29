@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import DatePicker from 'material-ui/DatePicker';
-import { UIButton } from '../../uikit/UIButton';
-import { UIFinTile } from '../../uikit/UIFinTile';
+import {UIButton} from '../../uikit/UIButton';
+import {UIFinTile} from '../../uikit/UIFinTile';
 
 import '../../../styles/components/finance.scss';
 
