@@ -1,0 +1,26 @@
+{
+  "presets": [
+    "react-app"
+  ],
+  "plugins": [
+    "react-loadable/babel",
+    "syntax-dynamic-import",
+    [
+      "import-inspector",
+      {
+        "serverSideRequirePath": true
+      }
+    ],
+    "transform-decorators-legacy",
+    [
+      "css-modules-transform",
+      {
+        "devMode": false,
+        "extensions": [
+          "css",
+          "scss"
+        ]
+      }
+    ]
+  ]
+}

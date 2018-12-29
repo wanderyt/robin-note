@@ -12,6 +12,7 @@
 # misc
 .DS_Store
 .env
+.env.ins
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -20,10 +21,13 @@ yarn-error.log*
 .vscode
 
 # npm
-package-lock.json
+# package-lock.json
 
 # download
 /downloadImages
 
 # wacai log
 /server/wacai/files
+
+# storybook
+.cache

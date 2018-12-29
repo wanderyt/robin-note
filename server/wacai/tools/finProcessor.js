@@ -1,11 +1,11 @@
 const
     { WacaiModel } = require('../models/wacai_model'),
     fs = require('fs'),
-    { WACAI_SESSION } = require('../../constants'),
+    { WACAI_SESSION } = process.env,
     mkdirp = require('mkdirp'),
     path = require('path');
 
-const getWacaiData = ({fromDate, toDate}, resp) => {
+const getWacaiData = ({fromDate, toDate, cookies}, callback) => {
     const formatCurrentDate = () => {
         let current = new Date(),
             month = current.getMonth() > 8 ? String(current.getMonth() + 1) : 0 + String(current.getMonth() + 1),
@@ -29,15 +29,17 @@ const getWacaiData = ({fromDate, toDate}, resp) => {
     // TO-DO: ADD FORCE OPTION TO REFRESH DATA
     if (fs.existsSync(fileFullPath)) {
         let outputData = require(fileFullPath);
-        resp.setHeader('Content-Type', 'application/json');
-        resp.json({data: outputData});
+        callback({
+            'statusCode': 200,
+            data: {data: outputData}
+        });
     } else {
         let dataSetDefer = new Promise((resolve, reject) => {
             wacaiModel.fetchData({
                 startDate: start,
                 endDate: end,
                 pageIndex: pageIndex
-            }).then((data) => {
+            }, {cookies}).then((data) => {
                 var pageTotal = data.pi.pageCount;
                 console.log(`recordsCount is ${data.pi.recordsCount}`);
 
@@ -58,7 +60,7 @@ const getWacaiData = ({fromDate, toDate}, resp) => {
                                 wacaiModel.fetchData({
                                     startDate: start,
                                     pageIndex: i
-                                }).then((data) => {
+                                }, {cookies}).then((data) => {
                                     console.log(`pageIndex is ${i}, pageTotal is ${pageTotal}`);
                                     console.log(`fetchData at ${i}`);
                                     wacaiModel.appendData(data);
@@ -81,8 +83,10 @@ const getWacaiData = ({fromDate, toDate}, resp) => {
 
             // output wacai data
             var finalOutput = formatWacaiData(wacaiModel.finData);
-            resp.setHeader('Content-Type', 'application/json');
-            resp.json({data: finalOutput});
+            callback({
+                statusCode: 200,
+                data: {data: finalOutput}
+            });
 
             console.log('start to write file: ' + fileFullPath);
             console.log(fs.existsSync(fileFullPath));
@@ -98,8 +102,13 @@ const getWacaiData = ({fromDate, toDate}, resp) => {
                 });
             }
         }, (error) => {
-            resp.statusCode = 500;
-            resp.send('fail');
+            callback({
+                statusCode: 500,
+                data: {
+                    status: false,
+                    error
+                }
+            });
             console.log(`data fetch failed... ${error}`);
         });
     }

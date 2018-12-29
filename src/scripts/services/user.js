@@ -1,28 +1,28 @@
 import {SERVER_LATENCY} from './constant';
 
 export const loginService = ({
-    username,
-    password
+  username,
+  password
 }) => {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve({
-                username,
-                status: 'success'
-            })
-        }, SERVER_LATENCY);
-    });
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({
+        username,
+        status: 'success'
+      })
+    }, SERVER_LATENCY);
+  });
 }
 
 export const logoutService = ({
-    username
+  username
 }) => {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve({
-                username,
-                status: 'success'
-            })
-        }, SERVER_LATENCY);
-    });
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({
+        username,
+        status: 'success'
+      })
+    }, SERVER_LATENCY);
+  });
 }
