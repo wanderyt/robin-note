@@ -1,0 +1,74 @@
+{
+  "menus": [{
+      "text": "Study",
+      "nodes": [{
+          "text": "Math",
+          "nodes": [{
+              "text": "Number"
+          }, {
+              "text": "Plus"
+          }, {
+              "text": "Minus"
+          }]
+      }, {
+          "text": "English"
+      }, {
+          "text": "Chinese"
+      }]
+  }, {
+      "text": "Entertainment",
+      "nodes": [{
+          "text": "Games"
+      }, {
+          "text": "Paint"
+      }, {
+          "text": "Instagram"
+      }, {
+          "text": "Sports",
+           "nodes": [{
+              "text": "Football"
+          }, {
+              "text": "Badminton"
+          }]
+      }]
+  }, {
+      "text": "Home",
+      "nodes": [{
+          "text": "Finance"
+      }]
+  }],
+  "menu-indent": 20,
+
+  "menuBar": [{
+      "text": "Study",
+      "nodes": [{
+          "text": "Number"
+      }, {
+          "text": "Plus"
+      }, {
+          "text": "Minus"
+      }, {
+          "text": "English"
+      }, {
+          "text": "Chinese"
+      }]
+  }, {
+      "text": "Entertainment",
+      "nodes": [{
+          "text": "Games"
+      }, {
+          "text": "Paint"
+      }, {
+          "text": "Instagram"
+      }, {
+          "text": "Football"
+      }, {
+          "text": "Badminton"
+      }]
+  }, {
+      "text": "Home",
+      "nodes": [{
+          "text": "Finance"
+      }]
+  }]
+}

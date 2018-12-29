@@ -1,22 +1,22 @@
 class Singleton {
-    constructor() {
-        if (!this.instance) {
-            this.getInstance();
-        }
+  constructor() {
+    if (!this.instance) {
+      this.getInstance();
+    }
+  }
+
+  getInstance() {
+    if (!this.instance) {
+      this.instance = {
+        name: 'David',
+        age: 30
+      };
     }
 
-    getInstance() {
-        if (!this.instance) {
-            this.instance = {
-                name: 'David',
-                age: 30
-            };
-        }
-
-        return this.instance;
-    }
+    return this.instance;
+  }
 }
 
 module.exports = {
-    Singleton
+  Singleton
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {UISearchBox} from '../scripts/uikit/UISearchBox';
+import UISearchBox from '../scripts/uikit/search-box';
 
 import './index.scss';
 // import "normalize.css";

@@ -1,0 +1,16 @@
+@import '../../../styles/breakpoints';
+.Header {
+  height: 200px; // background: linear-gradient(
+  //   rgba(0, 0, 0, .7),
+  //   rgba(0, 0, 0, .7)
+  // ), url('./header-image.png');
+  // background-image: url('./header.jpg');
+  background-size: 200px 200px;
+  background-position: right;
+  background-repeat: no-repeat;
+  @media only screen and (max-width: $breakpoint-medium) {
+    & {
+      display: none;
+    }
+  }
+}

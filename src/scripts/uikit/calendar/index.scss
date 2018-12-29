@@ -1,0 +1,27 @@
+.Calendar__FlexRow {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.UICalendar {
+  .Calendar__Toolbar {
+    justify-content: space-between;
+    .Calendar__Title {
+      height: 30px;
+      font-family: 'Anivers', 'Helvetica', 'Sans-Serif';
+      font-size: 20px;
+      line-height: 30px;
+      font-weight: bold;
+    }
+    .Calendar__ToolBtns {
+      .Calendar__ToolBtn {
+        display: inline-block;
+        border: 1px solid black;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        margin: 0 5px;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
