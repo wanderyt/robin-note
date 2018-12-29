@@ -1,48 +1,49 @@
 .UIFinTile {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-    border: 1px solid black;
-    margin: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  border: 1px solid black;
+  min-width: 200px;
 
-    .UIFinTile__Row {
-        margin-top: 5px;
-        display: flex;
-        align-content: space-between;
-        align-items: baseline;
+  .UIFinTile__Row {
+    margin-top: 5px;
+    display: flex;
+    align-content: space-between;
+    align-items: baseline;
 
-        .UIFinTile__Expense {
-            width: 150px;
+    .UIFinTile__Expense {
+      width: 150px;
 
-            .UIFinTile__ExpenseSymbol {
-                font-size: 20px;
-                font-family: 'Anivers', 'Helvetica', 'Sans-Serif';
-                font-weight: bold;
-                padding: 10px 0 0 10px;
-            }
-            .UIFinTile__ExpenseNumber {
-                color: #FF5400;
-                font-family: Monaco;
-                font-size: 25px;
-                font-weight: bold;
-                float: right;
-                padding-right: 10px;
-                position: relative;
-                bottom: 10px;
-            }
-        }
-    }
-
-    .UIFinTile__Category {
-        padding: 5px 20px;
-        font-weight: bold;
-    }
-
-    .UIFinTile__Comment {
-        margin: 0 10px;
-        border-top: 1px solid grey;
-        padding: 5px 10px;
-        text-align: right;
-        color: red;
-        font-weight: bold;
+      .UIFinTile__ExpenseSymbol {
         font-size: 20px;
+        font-family: 'Anivers', 'Helvetica', 'Sans-Serif';
+        font-weight: bold;
+        padding: 10px 0 0 10px;
+      }
+
+      .UIFinTile__ExpenseNumber {
+        color: #FF5400;
+        font-family: Monaco;
+        font-size: 25px;
+        font-weight: bold;
+        float: right;
+        padding-right: 10px;
+        position: relative;
+        bottom: 10px;
+      }
     }
+  }
+
+  .UIFinTile__Category {
+    padding: 5px 20px;
+    font-weight: bold;
+  }
+
+  .UIFinTile__Comment {
+    margin: 0 10px;
+    border-top: 1px solid grey;
+    padding: 5px 10px;
+    text-align: right;
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+  }
 }

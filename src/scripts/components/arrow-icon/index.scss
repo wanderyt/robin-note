@@ -1,0 +1,18 @@
+.arrow-icon {
+  background-image: url('./down-arrow.svg');
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+}
+
+.arrow-icon--left {
+  transform: rotate(90deg);
+}
+
+.arrow-icon--right {
+  transform: rotate(-90deg);
+}
+
+.arrow-icon--up {
+  transform: rotate(180deg);
+}
