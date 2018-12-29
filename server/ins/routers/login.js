@@ -55,7 +55,7 @@ router.post('/login', (req, res) => {
   }, (error, response, body) => {
     res.statusCode = response.statusCode;
     if (response && response.statusCode === 200) {
-      res.set('set-cookie', getTokenByRegex(response.headers['set-cookie']), /(sessionid=[^\s;]*)/);
+      res.set('set-cookie', getTokenByRegex(response.headers['set-cookie'], /(sessionid=[^\s;]*)/));
       res.json({
         status: true
       });

@@ -4,7 +4,7 @@ const request = require('request');
 const fs = require('fs');
 
 const {INS_QUERY_HASH, SESSIONID} = process.env;
-const {ids} = require('../../../src/config/ins-config.json');
+const {ids} = require('../config/config.json');
 const INS_IMAGE_TEMPLATE = `https://www.instagram.com/graphql/query/?query_hash=${INS_QUERY_HASH}&variables={"id":{{id}},"first":{{offset}}{{nextTimeHash}}}`
 
 router.get('/images', (req, res) => {
@@ -15,6 +15,8 @@ router.get('/images', (req, res) => {
   // set has more url
   path = path.replace('{{nextTimeHash}}', nextTimeHash ? `,"after":"${nextTimeHash}"` : '');
 
+  console.log(`sessionid=${SESSIONID};`);
+
   request({
     url: encodeURI(path),
     method: 'get',
@@ -23,8 +25,8 @@ router.get('/images', (req, res) => {
     }
   }, (error, response, body) => {
     console.log(`Fetch Instagram data:`);
-    if (response) {
-      console.log(`Fetch Instagram data status code: ${response.statusCode}`);
+    console.log(`Fetch Instagram data status code: ${response.statusCode}`);
+    if (response && response.statusCode >= 200 && response.statusCode < 300) {
       res.statusCode = response.statusCode;
       let { output } = formatInsImageData(body, id);
 
@@ -34,12 +36,10 @@ router.get('/images', (req, res) => {
       res.statusCode = response.statusCode;
       res.json(output);
     } else {
-      res.statusCode = 500;
+      res.statusCode = response.statusCode;
       if (typeof error === 'object') {
         res.json({
-          error: {
-            code: error.code
-          }
+          error: error
         });
       } else {
         res.json({
@@ -59,8 +59,8 @@ const formatInsImageData = (data, insName) => {
   let responseJSON = JSON.parse(data);
   let insImageData = responseJSON.data.user.edge_owner_to_timeline_media.edges,
     output = {
-      nextCursor: data.data.user.edge_owner_to_timeline_media.page_info.end_cursor,
-      hasNext: data.data.user.edge_owner_to_timeline_media.page_info.has_next_page,
+      nextCursor: responseJSON.data.user.edge_owner_to_timeline_media.page_info.end_cursor,
+      hasNext: responseJSON.data.user.edge_owner_to_timeline_media.page_info.has_next_page,
       data: []
     },
     imageList = [];

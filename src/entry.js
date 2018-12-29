@@ -6,7 +6,7 @@ import './entry.css';
 // Redux related
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import mainReducer from './reducers';
+import mainReducer from './scripts/reducers';
 
 var store = createStore(mainReducer);
 
