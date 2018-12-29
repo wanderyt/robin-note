@@ -35,7 +35,6 @@ app.use('/api/proxy/wacai', [wacaiMiddleware.wacaiLoginMiddleware, ...wacaiRoute
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 console.log('env prop ENABLE_LOG: ' + process.env.ENABLE_LOG);
-console.log('env prop TEST_INS: ' + process.env.TEST_INS);
 
 // https server
 // const https = require('https');

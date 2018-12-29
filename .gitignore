@@ -21,7 +21,7 @@ yarn-error.log*
 .vscode
 
 # npm
-package-lock.json
+# package-lock.json
 
 # download
 /downloadImages
