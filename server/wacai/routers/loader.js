@@ -3,10 +3,8 @@ const router = express.Router();
 const { getWacaiData } = require('../tools/finProcessor');
 
 router.get('/loadData', (req, res) => {
-  let { fromDate, toDate } = req.query;
+  let {fromDate, toDate} = req.query;
   let cookies = req.headers['cookie'];
-
-  console.log(req.headers);
 
   getWacaiData({ fromDate, toDate, cookies }, ({ statusCode, data }) => {
     res.setHeader('Content-Type', 'application/json');

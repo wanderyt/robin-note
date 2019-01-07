@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from '../../src/scripts/components/carousel';
 import {storiesOf} from '@storybook/react';
-import {UIFinTile} from '../../src/scripts/uikit/UIFinTile';
+import UIFinTile from '../../src/scripts/uikit/finance-tile';
 
 const mockData = {
   date: '2018-11-10T12:20:00',

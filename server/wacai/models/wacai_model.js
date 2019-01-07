@@ -41,7 +41,6 @@ class WacaiModel {
           'Cookie': options.cookies
         }
       }, (error, response, body) => {
-        console.log(response.headers);
         console.log(`WacaiModel.fetchData returns...`);
         if (response) {
           console.log(`WacaiModel.fetchData returns: ${response.statusCode}`);

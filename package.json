@@ -7,7 +7,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "m": "concurrently --kill-others-on-fail \"node server/server.js\" \"npm run start\"",
+    "m": "concurrently --kill-others-on-fail \"node server/index.js\" \"npm run start\"",
     "server": "node server/index.js",
     "server-debug": "node --inspect server/server.js",
     "mytest": "jest",
@@ -26,6 +26,7 @@
     "url": "https://github.com/wanderyt/robin-note/issues"
   },
   "dependencies": {
+    "@material-ui/core": "^3.7.1",
     "autoprefixer": "7.1.2",
     "axios": "^0.17.1",
     "babel-core": "6.25.0",
