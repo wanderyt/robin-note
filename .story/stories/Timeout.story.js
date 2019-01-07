@@ -1,5 +1,6 @@
 import React from 'react';
 import Timeout from '../../src/scripts/components/timeout';
+import PureTimeout from '../../src/scripts/components/timeout/pure';
 import {storiesOf} from '@storybook/react';
 
 storiesOf('Timeout', module)
