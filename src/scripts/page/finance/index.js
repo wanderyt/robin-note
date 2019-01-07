@@ -2,8 +2,10 @@ import React from 'react';
 import axios from 'axios';
 
 import DatePicker from 'material-ui/DatePicker';
-import UIButton from '../../uikit/button';
+// import UIButton from '../../uikit/button';
+import Button from '@material-ui/core/Button';
 import UIFinTile from '../../uikit/finance-tile';
+import FinanceChart from './finance-charts';
 
 import './index.scss';
 
@@ -45,12 +47,12 @@ class Finance extends React.Component {
   }
 
   componentDidMount() {
-    axios('/api/wacai/loadData')
-      .then(function (res) {
-        this.setState({
-          loadStatus: true
-        })
-      }.bind(this))
+    // axios('/api/wacai/loadData')
+    //   .then(function (res) {
+    //     this.setState({
+    //       loadStatus: true
+    //     })
+    //   }.bind(this))
   }
 
   handleFromDateChange = (evt, date) => {
@@ -99,11 +101,17 @@ class Finance extends React.Component {
               mode="landscape"
               onChange={this.handleToDateChange} />
           </div>
-          <UIButton
+          {/* <UIButton
             text="Go!"
-            handleClick={this.getFinData} />
+            handleClick={this.getFinData} /> */}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.getFinData}>
+            Search
+          </Button>
         </div>
-        <div className="Finance__DataMain">
+        {/* <div className="Finance__DataMain">
           {
             this.pickValidItems(this.state.finData).map((item) =>
               <UIFinTile
@@ -114,6 +122,11 @@ class Finance extends React.Component {
                 date={item.date}
                 comment={item.comment} />
             )
+          }
+        </div> */}
+        <div className="Finance__Charts__Container">
+          {
+            this.state.finData.length > 0 && <FinanceChart data={this.state.finData} />
           }
         </div>
       </div>

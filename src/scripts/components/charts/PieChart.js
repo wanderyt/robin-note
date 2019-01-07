@@ -54,7 +54,7 @@ class TwoLevelPieChart extends React.Component {
 export default TwoLevelPieChart;
 
 const GooglePieChart = (props) => {
-  const {width, height, LoadingComponent, data, options, rootProps} = props;
+  const {width, height, LoadingComponent, data, options, rootProps, chartEvents = []} = props;
   return data ? (
     <GoogleChart
       width={width}
@@ -63,7 +63,10 @@ const GooglePieChart = (props) => {
       loader={<LoadingComponent />}
       data={data}
       options={options}
-      rootProps={rootProps} />
+      rootProps={rootProps}
+      chartEvents={
+        [...chartEvents]
+      } />
   )
   :
   null;
@@ -72,10 +75,11 @@ const GooglePieChart = (props) => {
 GooglePieChart.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
-  LoadingComponent: PropTypes.element,
+  LoadingComponent: PropTypes.oneOfType(PropTypes.func, PropTypes.element),
   data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
   options: PropTypes.object,
-  rootProps: PropTypes.object
+  rootProps: PropTypes.object,
+  chartEvents: PropTypes.array,
 };
 
 GooglePieChart.defaultProps = {
@@ -88,6 +92,7 @@ GooglePieChart.defaultProps = {
   rootProps: {
     'data-testid': '1'
   },
+  chartEvents: []
 };
 
 export {
