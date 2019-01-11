@@ -21,6 +21,9 @@ const getWacaiData = ({ fromDate, toDate, cookies }, callback) => {
     end = toDate || formatCurrentDate(),
     pageIndex = 1;
 
+  console.log(`fromDate - toDate: ${fromDate} - ${toDate}`);
+  console.log(`start - end: ${start} - ${end}`);
+
   let filePath = `${process.cwd()}${path.sep}server${path.sep}wacai${path.sep}files`,
     fileName = `finData-from-${start}-to-${end}.json`,
     fileFullPath = `${filePath}${path.sep}${fileName}`;
@@ -59,6 +62,7 @@ const getWacaiData = ({ fromDate, toDate, cookies }, callback) => {
               new Promise(resolve => {
                 wacaiModel.fetchData({
                   startDate: start,
+                  endDate: end,
                   pageIndex: i
                 }, { cookies }).then((data) => {
                   console.log(`pageIndex is ${i}, pageTotal is ${pageTotal}`);

@@ -6,7 +6,7 @@
  * @param {RegExp} reg - cookies regex to match related token
  * @returns {String} targeted token string
  */
-const getTokenByRegex = (cookies, reg = /(wctk=\w*);/) => {
+const getTokenByRegex = (cookies = [], reg = /(wctk=\w*);/) => {
   const matchResult = cookies.join(';').match(reg);
   if (matchResult && matchResult.length > 1) {
     return matchResult[1];

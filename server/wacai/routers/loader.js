@@ -4,7 +4,8 @@ const { getWacaiData } = require('../tools/finProcessor');
 
 router.get('/loadData', (req, res) => {
   let {fromDate, toDate} = req.query;
-  let cookies = req.headers['cookie'];
+  console.log(`req.__wctoken: ${req.__wctoken}`);
+  let cookies = req.__wctoken || req.headers['cookie'];
 
   getWacaiData({ fromDate, toDate, cookies }, ({ statusCode, data }) => {
     res.setHeader('Content-Type', 'application/json');

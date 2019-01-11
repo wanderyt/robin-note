@@ -17,11 +17,10 @@ router.post('/login', (req, res, next) => {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
   }, (error, response, body) => {
-    console.log('wacai login executing...');
     if (response && response.statusCode === 200) {
       const token = getTokenByRegex(response.headers['set-cookie'], /^(wctk=\w*);/);
-      console.log(`wacai token is: ${token}`)
-      res.set('set-cookie', token);
+      console.log(`wacai login token: ${token}`);
+      token && res.set('set-cookie', token);
       res.json({
         status: true
       });

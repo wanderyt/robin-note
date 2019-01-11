@@ -5,7 +5,6 @@ const _ = require('underscore'),
 
 class WacaiModel {
   constructor(props = {}) {
-    console.log('WacaiModel is initializing...');
     this.finData = [];
     this.sessionId = props.sessionId;
   }
@@ -18,8 +17,6 @@ class WacaiModel {
   }
 
   fetchData(props = {}, options) {
-    console.log('WacaiModel.fetchData is executing...');
-
     let postData = {
       'cond.date': props.startDate || '2015-07-01',
       'cond.date_end': props.endDate || this.formatCurrentDate(),
@@ -28,8 +25,11 @@ class WacaiModel {
       'cond.reimbursePrefer': 0
     };
 
+    console.log(`loadData params: ${postData['cond.date']} - ${postData['cond.date_end']}`);
+
     let self = this;
     let dataPromise = new Promise((resolve, reject) => {
+      console.log(`WacaiModel.fetchData cookies: ${options.cookies}`);
       request({
         url: `https://${DETAILS_HOST}:443${DETAILS_PATH}?timsmp=${new Date().getTime()}`,
         method: 'POST',
@@ -41,9 +41,7 @@ class WacaiModel {
           'Cookie': options.cookies
         }
       }, (error, response, body) => {
-        console.log(`WacaiModel.fetchData returns...`);
         if (response) {
-          console.log(`WacaiModel.fetchData returns: ${response.statusCode}`);
           try {
             resolve(JSON.parse(body));
           } catch (e) {
