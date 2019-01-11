@@ -51,21 +51,17 @@ class FinanceCharts extends React.Component {
   selectPieHandler = ({chartWrapper}) => {
     const chart = chartWrapper.getChart();
     const selection = chart.getSelection();
+    let selectedCategory = '';
     if (selection.length === 1) {
       const [selectedItem] = selection;
       const dataTable = chartWrapper.getDataTable();
-      const rowData = dataTable.getRowProperties(selectedItem.row);
-      const rowNumber = dataTable.getNumberOfRows();
       console.log('selectedItem:');
       console.log(selectedItem);
-      console.log('dataTable:');
-      console.log(dataTable);
-      console.log('rowData:');
-      console.log(rowData);
-      console.log('rowNumber:');
-      console.log(rowNumber);
+
+      selectedCategory = dataTable.getValue(selectedItem.row, 0);
+      this.props.handlePieSelected && this.props.handlePieSelected(selectedCategory);
     }
-    return null;
+    return selectedCategory;
   }
 
   render() {
