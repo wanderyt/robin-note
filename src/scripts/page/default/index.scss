@@ -1,0 +1,27 @@
+.Welcome {
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+  margin: 50px 0;
+  .Welcome__Item {
+    margin: 10px 0;
+  }
+  .Welcome__Title {
+    font-family: 'Anivers';
+    font-size: 40px;
+    font-weight: bold;
+  }
+  .Welcome__Desc, .Welcome__Details {
+    font-family: 'Helvetica';
+    font-size: 30px;
+  }
+  .Welcome__Details {
+    margin-bottom: 40px;
+  }
+  .Welcome__Link {
+    padding-left: 20px;
+    margin: 2px 0;
+    font-size: 15px;
+    font-family: 'monaco'
+  }
+}

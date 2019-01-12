@@ -1,6 +1,7 @@
 // ./src/routes.js
 import React, {Suspense, lazy} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import Spinner from './scripts/uikit/spinner';
 
 const Number = lazy(() => import(/* webpackChunkName: "page-number" */ './scripts/page/number'));
 const Paint = lazy(() => import(/* webpackChunkName: "page-paint" */ './scripts/page/paint'));
@@ -15,7 +16,7 @@ const Colors = lazy(() => import(/* webpackChunkName: "page-facebook-login" */ '
 export default (props) => (
   <div>
     <Suspense
-      fallback={<div>Spinner</div>}>
+      fallback={<Spinner />}>
       {/* React routers settings */}
       <Route exact={true} path="/" component={Default}></Route>
       <Route path="/number" component={Number}></Route>
@@ -26,6 +27,7 @@ export default (props) => (
       <Route path="/facebookLogin" component={FacebookLogin}></Route>
       <Route path="/testCounter" component={TestCounter}></Route>
       <Route path="/colors" component={Colors}></Route>
+      <Route path="/loading" component={Spinner}></Route>
     </Suspense>
   </div>
 );
