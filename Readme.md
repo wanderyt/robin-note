@@ -144,3 +144,12 @@ Page for math learning.
 
 > localhost:3000/number
 
+## Fonts
+
+### MERRIWEATHER
+
+Download link: https://www.fontsquirrel.com/fonts/merriweather
+
+Inspired by: [Dan Abramov - The Elements of UI Engineering](http://pop.frontendweekly.co/TFDWyR?utm_campaign=Frontend%2BWeekly&utm_medium=email&utm_source=Frontend_Weekly_135)
+
+
