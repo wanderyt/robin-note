@@ -2,6 +2,15 @@
 
 Note board for little robin
 
+## ENV
+
+Initialized by *create-react-app@1.4.1*
+
+__ENV versions:__
+
+* Node: 8.11.4
+* Webpack: 3
+
 ## Folder structure
 
 ### Project folder
