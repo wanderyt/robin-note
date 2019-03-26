@@ -53,16 +53,24 @@ router.post('/login', (req, res) => {
       'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36'
     }
   }, (error, response, body) => {
-    res.statusCode = response.statusCode;
-    if (response && response.statusCode === 200) {
-      res.set('set-cookie', getTokenByRegex(response.headers['set-cookie'], /(sessionid=[^\s;]*)/));
-      res.json({
-        status: true
-      });
-    } else {
+    try {
+      res.statusCode = response.statusCode;
+      if (response && response.statusCode === 200) {
+        res.set('set-cookie', getTokenByRegex(response.headers['set-cookie'], /(sessionid=[^\s;]*)/));
+        res.json({
+          status: true
+        });
+      } else {
+        res.json({
+          status: false,
+          error
+        });
+      }
+    } catch (e) {
+      res.statusCode = 500;
       res.json({
         status: false,
-        error
+        error: e
       });
     }
   });

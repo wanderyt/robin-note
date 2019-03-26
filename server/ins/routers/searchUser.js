@@ -12,19 +12,28 @@ router.get('/searchUser', (req, res) => {
     url: encodeURI(path),
     method: 'get'
   }, (error, response, body) => {
-    if (response && response.statusCode === 200) {
-      res.statusCode = response.statusCode;
-      // Format data
-      let output = formatInsSearchData(JSON.parse(body));
-      res.json(output);
-    } else {
+    try {
+      if (response && response.statusCode === 200) {
+        res.statusCode = response.statusCode;
+        // Format data
+        let output = formatInsSearchData(JSON.parse(body));
+        res.json(output);
+      } else {
+        res.statusCode = 500;
+        res.json({
+          status: false,
+          error
+        });
+      }
+    } catch (e) {
       res.statusCode = 500;
       res.json({
         status: false,
-        error
+        error: e
       });
+    } finally {
+      logApiRequest(path, res.statusCode, {error});
     }
-    logApiRequest(path, res.statusCode, {error});
   });
 });
 
