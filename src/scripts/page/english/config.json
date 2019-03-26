@@ -1,0 +1,8 @@
+{
+  "chars": ["a", "b", "c", "d", "e", "f"],
+  "words": [
+    "apple", "alligator", "ant", "ax",
+    "book", "bag", "bat", "box", "bug",
+    "cat", "cap", "cup", "can", "cut"
+  ]
+}
