@@ -5,7 +5,7 @@ const
   mkdirp = require('mkdirp'),
   path = require('path');
 
-const getWacaiData = ({ fromDate, toDate, cookies }, callback) => {
+const getWacaiData = ({ fromDate, toDate, cookies, writeToFile }, callback = () => {}) => {
   const formatCurrentDate = () => {
     let current = new Date(),
       month = current.getMonth() > 8 ? String(current.getMonth() + 1) : 0 + String(current.getMonth() + 1),
@@ -92,18 +92,20 @@ const getWacaiData = ({ fromDate, toDate, cookies }, callback) => {
         data: { data: finalOutput }
       });
 
-      console.log('start to write file: ' + fileFullPath);
-      console.log(fs.existsSync(fileFullPath));
+      if (writeToFile) {
+        console.log('start to write file: ' + fileFullPath);
+        console.log(fs.existsSync(fileFullPath));
 
-      if (!fs.existsSync(fileFullPath)) {
-        mkdirp(filePath, (err) => {
-          fs.writeFile(fileFullPath, JSON.stringify(finalOutput), (err) => {
-            if (err) {
-              console.log(`Saving file finData-from-${start}-to-${end}.json failed!`);
-            }
-            console.log(`file finData-from-${start}-to-${end}.json has been saved!`);
+        if (!fs.existsSync(fileFullPath)) {
+          mkdirp(filePath, (err) => {
+            fs.writeFile(fileFullPath, JSON.stringify(finalOutput), (err) => {
+              if (err) {
+                console.log(`Saving file finData-from-${start}-to-${end}.json failed!`);
+              }
+              console.log(`file finData-from-${start}-to-${end}.json has been saved!`);
+            });
           });
-        });
+        }
       }
     }, (error) => {
       callback({

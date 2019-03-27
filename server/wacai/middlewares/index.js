@@ -52,5 +52,6 @@ const getToken = (cookies = []) => {
 };
 
 module.exports = {
-  wacaiLoginMiddleware
+  wacaiLoginMiddleware,
+  getSessionToken,
 };

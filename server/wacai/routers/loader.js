@@ -8,7 +8,7 @@ router.get('/loadData', (req, res) => {
   let cookies = req.__wctoken || req.headers['cookie'];
 
   try {
-    getWacaiData({ fromDate, toDate, cookies }, ({ statusCode, data }) => {
+    getWacaiData({ fromDate, toDate, cookies, writeToFile: true }, ({ statusCode, data }) => {
       res.setHeader('Content-Type', 'application/json');
       res.status = statusCode;
       res.json(data);
