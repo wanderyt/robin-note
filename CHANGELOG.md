@@ -1,5 +1,15 @@
 # robin-note
 
+### 2.1.0
+
+Storybook / Chart / Welcome page / Wacai Job / sqlite feature.
+
+- Add storybook board.
+- Add chart feature for wacai data.
+- Add job to sync data.
+- Add sqlite as temporary database tool.
+- Refactor welcome page.
+
 ### 2.0.0
 
 DotEnv, Gulp, Storybook configuration.

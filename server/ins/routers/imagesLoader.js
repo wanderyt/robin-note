@@ -26,28 +26,35 @@ router.get('/images', (req, res) => {
   }, (error, response, body) => {
     console.log(`Fetch Instagram data:`);
     console.log(`Fetch Instagram data status code: ${response.statusCode}`);
-    if (response && response.statusCode >= 200 && response.statusCode < 300) {
-      res.statusCode = response.statusCode;
-      let { output } = formatInsImageData(body, id);
+    try {
+      if (response && response.statusCode >= 200 && response.statusCode < 300) {
+        res.statusCode = response.statusCode;
+        let { output } = formatInsImageData(body, id);
 
-      // download images
-      // downloadImages(imageList);
+        // download images
+        // downloadImages(imageList);
 
-      res.statusCode = response.statusCode;
-      res.json(output);
-    } else {
-      res.statusCode = response.statusCode;
-      if (typeof error === 'object') {
-        res.json({
-          error: error
-        });
+        res.statusCode = response.statusCode;
+        res.json(output);
       } else {
-        res.json({
-          error: {
-            code: 'GENERIC_ERROR'
-          }
-        });
+        res.statusCode = response.statusCode;
+        if (typeof error === 'object') {
+          res.json({
+            error: error
+          });
+        } else {
+          res.json({
+            error: {
+              code: 'GENERIC_ERROR'
+            }
+          });
+        }
       }
+    } catch (e) {
+      res.statusCode = 500;
+      res.json({
+        error: e
+      });
     }
   });
 });

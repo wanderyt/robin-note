@@ -1,0 +1,12 @@
+.Finance__Summary {
+  width: 150px;
+  .Finance__Summary__Item {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .Finance__Summary__Total {
+    border-top: 1px grey solid;
+    padding-top: 1px;
+  }
+}

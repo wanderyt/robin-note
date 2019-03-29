@@ -1,14 +1,18 @@
 .Finance {
   .Finance__Banner {
-    font-family: Monaco;
+    font-family: 'Merriweather Light Italic', 'Monaco';
   }
   .Finance__FromDate,
   .Finance__ToDate {
     display: inline-block;
   }
-  .Finance__DataMain {
+  .Finance__DataMain, .Finance__DataFiltered {
     display: flex;
     flex-wrap: wrap;
     align-content: space-between;
+  }
+  .Finance__DataSummary {
+    width: 400px;
+    opacity: 0.5;
   }
 }

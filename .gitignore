@@ -28,6 +28,9 @@ yarn-error.log*
 
 # wacai log
 /server/wacai/files
+/server/wacai/token.txt
+wacai.db
 
 # storybook
 .cache
+

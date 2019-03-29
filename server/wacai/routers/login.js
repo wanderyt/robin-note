@@ -17,22 +17,29 @@ router.post('/login', (req, res, next) => {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
   }, (error, response, body) => {
-    console.log('wacai login executing...');
-    if (response && response.statusCode === 200) {
-      const token = getTokenByRegex(response.headers['set-cookie'], /^(wctk=\w*);/);
-      console.log(`wacai token is: ${token}`)
-      res.set('set-cookie', token);
-      res.json({
-        status: true
-      });
-    } else {
+    try {
+      if (response && response.statusCode === 200) {
+        const token = getTokenByRegex(response.headers['set-cookie'], /^(wctk=\w*);/);
+        console.log(`wacai login token: ${token}`);
+        token && res.set('set-cookie', token);
+        res.json({
+          status: true
+        });
+      } else {
+        res.json({
+          status: false,
+          error: error || body || ''
+        });
+      }
+
+      res.statusCode = response ? response.statusCode : 500;
+    } catch (e) {
+      res.statusCode = 500;
       res.json({
         status: false,
-        error: error || body || ''
+        error: e
       });
     }
-
-    res.statusCode = response ? response.statusCode : 500;
   });
 });
 

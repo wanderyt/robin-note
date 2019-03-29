@@ -2,10 +2,15 @@ import React from 'react';
 import axios from 'axios';
 
 import DatePicker from 'material-ui/DatePicker';
-import UIButton from '../../uikit/button';
+// import UIButton from '../../uikit/button';
+import Button from '@material-ui/core/Button';
 import UIFinTile from '../../uikit/finance-tile';
+// import FinanceChart from './finance-charts';
+import FinanceSummary from './fiannce-summary';
 
 import './index.scss';
+
+const FinanceChart = React.lazy(() => import(/* webpackChunkName: "module-finance-charts" */ './finance-charts'));
 
 class Finance extends React.Component {
   constructor(props) {
@@ -18,7 +23,8 @@ class Finance extends React.Component {
       minDate,
       fromDate,
       toDate: null,
-      finData: []
+      finData: [],
+      pieFilteredData: []
     };
 
     this.handleFromDateChange = this.handleFromDateChange.bind(this);
@@ -32,7 +38,7 @@ class Finance extends React.Component {
       let fromDate = this.formatDate(this.state.fromDate),
         toDate = this.formatDate(this.state.toDate);
 
-      axios(`/api/wacai/loadData?fromDate=${fromDate}&toDate=${toDate}`)
+      axios(`/api/proxy/wacai/loadData?fromDate=${fromDate}&toDate=${toDate}`)
         .then(function (res) {
           if (res.status === 200 && res.data && res.data.data && res.data.data.length > 0) {
             this.setState({
@@ -45,12 +51,12 @@ class Finance extends React.Component {
   }
 
   componentDidMount() {
-    axios('/api/wacai/loadData')
-      .then(function (res) {
-        this.setState({
-          loadStatus: true
-        })
-      }.bind(this))
+    // axios('/api/wacai/loadData')
+    //   .then(function (res) {
+    //     this.setState({
+    //       loadStatus: true
+    //     })
+    //   }.bind(this))
   }
 
   handleFromDateChange = (evt, date) => {
@@ -65,17 +71,28 @@ class Finance extends React.Component {
     });
   }
 
+  handlePieSelected = (category) => {
+    const {finData} = this.state;
+    let pieFilteredData = [];
+    if (category) {
+      pieFilteredData = finData.filter((item) => {
+        return item.category === category;
+      });
+
+      this.setState({
+        pieFilteredData
+      });
+    }
+  }
+
   formatDate = (date) => {
     let month = date.getMonth() > 8 ? String(date.getMonth() + 1) : 0 + String(date.getMonth() + 1),
       day = date.getDate() > 9 ? date.getDate() : 0 + String(date.getDate());
     return `${date.getFullYear()}-${month}-${day}`;
   }
 
-  pickValidItems = (items) => {
-    return items.slice(0, 10);
-  }
-
   render() {
+    const {pieFilteredData, finData} = this.state;
     return (
       <div
         className='Finance'>
@@ -99,23 +116,46 @@ class Finance extends React.Component {
               mode="landscape"
               onChange={this.handleToDateChange} />
           </div>
-          <UIButton
-            text="Go!"
-            handleClick={this.getFinData} />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.getFinData}>
+            Search
+          </Button>
         </div>
-        <div className="Finance__DataMain">
+        <React.Suspense
+          fallback={<div>loading</div>}>
+          <div className="Finance__Charts__Container">
+            {
+              finData.length > 0 && <FinanceChart data={finData} handlePieSelected={this.handlePieSelected} />
+            }
+          </div>
+        </React.Suspense>
+        {/* <div className="Finance__Charts__Container">
           {
-            this.pickValidItems(this.state.finData).map((item) =>
-              <UIFinTile
-                key={item.id}
-                money={item.money}
-                category={item.category}
-                subcategory={item.subcategory}
-                date={item.date}
-                comment={item.comment} />
-            )
+            finData.length > 0 && <FinanceChart data={finData} handlePieSelected={this.handlePieSelected} />
           }
+        </div> */}
+        <div className="Finance__DataSummary">
+          <FinanceSummary data={finData} />
         </div>
+        {
+          pieFilteredData.length > 0
+          &&
+          <div className="Finance__DataFiltered">
+            {
+              pieFilteredData.map((item) =>
+                <UIFinTile
+                  key={item.id}
+                  money={item.money}
+                  category={item.category}
+                  subcategory={item.subcategory}
+                  date={item.date}
+                  comment={item.comment} />
+              )
+            }
+          </div>
+        }
       </div>
     )
   }
