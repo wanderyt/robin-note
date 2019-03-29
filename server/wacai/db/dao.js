@@ -13,22 +13,45 @@ const createDBConnection = () => {
   return db;
 };
 
-const insertFinData = (db, {id, category, subcategory, money, comment, date}, callback) => {
-  if (id && category && subcategory && money && comment && date) {
-    let sql =
-      `insert into ${TABLE_NAME}(id, category, subcategory, date, comment, money)
-      values ('${id}', '${category}', '${subcategory}', '${date}', '${comment}', '${money}');`;
-    db.run(sql, (err) => {
-      if (err) {
-        logDBError('insert data with id: ' + id, err);
-      } else {
-        logDBSuccess('insert data with id: ' + id);
-      }
-
-      callback && callback(err);
+const insertFinData = (db, data, callback) => {
+  let sql = '', id = '';
+  if (Array.isArray(data)) {
+    data.map(({id, category, subcategory, money, comment, date}) => {
+      let tmpSql =
+        `insert into ${TABLE_NAME}(id, category, subcategory, date, comment, money)
+        values ("${id}", "${category}", "${subcategory}", "${date}", "${comment}", "${money}");`;
+      sql += tmpSql;
     });
+  } else {
+    id = data.id;
+    sql =
+      `insert into ${TABLE_NAME}(id, category, subcategory, date, comment, money)
+      values ("${data.id}", "${data.category}", "${data.subcategory}", "${data.date}", "${data.comment}", "${data.money}");`;
   }
+
+  db.run(sql, (err) => {
+    if (err) {
+      logDBError('insert data with id: ' + id, err);
+    } else {
+      logDBSuccess('insert data with id: ' + id);
+    }
+
+    callback && callback(err);
+  });
 };
+
+const deleteAllData = (db, callback) => {
+  let sql = `delete from ${TABLE_NAME};`;
+  db.run(sql, (err) => {
+    if (err) {
+      logDBError('Delete all data in FIN table', err);
+    } else {
+      logDBSuccess('Delete all data in FIN table');
+    }
+
+    callback && callback(err);
+  });
+}
 
 const closeDB = (db) => {
   db.close();
@@ -37,6 +60,7 @@ const closeDB = (db) => {
 module.exports = {
   createDBConnection,
   insertFinData,
-  closeDB
+  deleteAllData,
+  closeDB,
 };
 

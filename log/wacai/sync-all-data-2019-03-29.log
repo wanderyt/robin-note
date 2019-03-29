@@ -1,0 +1,15 @@
+[2019-03-29T15:46:04.359] [INFO] wacai - Start sync data:  Fri Mar 29 2019
+[2019-03-29T15:46:04.359] [INFO] wacai - current token is:  wctk=eO2k48oOZvtVpPYLKsjDF6QIbwt4acc7_cA
+[2019-03-29T15:46:04.362] [INFO] wacai - Start to sync data
+[2019-03-29T15:46:04.362] [INFO] wacai - From date:  2015-10-01
+[2019-03-29T15:46:04.362] [INFO] wacai - To date:  2019-03-29
+[2019-03-29T15:48:15.933] [INFO] wacai - Data retrieved with  4559  records.
+[2019-03-29T15:50:17.535] [INFO] wacai - Start sync data:  Fri Mar 29 2019
+[2019-03-29T15:50:17.535] [INFO] wacai - current token is:  wctk=eO2k48oOZvtVpPYLKsjDF6QIbwt4acc7_cA
+[2019-03-29T15:50:17.538] [INFO] wacai - Start to sync data
+[2019-03-29T15:50:17.538] [INFO] wacai - From date:  2015-10-01
+[2019-03-29T15:50:17.538] [INFO] wacai - To date:  2019-03-29
+[2019-03-29T15:52:33.424] [INFO] wacai - Data retrieved with  4559  records.
+[2019-03-29T15:52:33.425] [INFO] wacai - Starting to write data with  4559  records.
+[2019-03-29T15:52:37.246] [INFO] wacai - Succeeds writing  4556  records.
+[2019-03-29T15:52:37.246] [INFO] wacai - Sync done.
