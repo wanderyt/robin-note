@@ -1,6 +1,6 @@
 {
   "name": "robin-note",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "note board for little robin",
   "main": "index.js",
   "scripts": {
