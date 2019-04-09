@@ -43,7 +43,7 @@ class Chinese extends React.Component {
 
   getRelatedImage(searchText, book) {
     axios
-      .get(`/api/ins/searchText?searchText=${searchText}`)
+      .get(`/api/ins/searchImage?searchText=${searchText}`)
       .then(response => {
         if (response.status === 200) {
           let { imageUrl, imageUrls } = response.data;
