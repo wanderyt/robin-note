@@ -1,6 +1,6 @@
 {
   "name": "robin-note",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "note board for little robin",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "server-debug": "node --inspect server/server.js",
     "mytest": "jest",
     "testApp": "TEST_ENV=true npm run m",
-    "storybook": "node .story/index.js"
+    "storybook": "node .story/index.js",
+    "syncWacai": "node server/wacai/job/sync.js"
   },
   "engines": {
     "node": ">10.*"

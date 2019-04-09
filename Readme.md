@@ -71,7 +71,7 @@ Search related users with search string param.
 
 Search related images with search text param.
 
-> /api/ins/searchUser?searchText={searchText}
+> /api/ins/searchImage?searchText={searchText}
 
 ##### Get all images by User Id
 

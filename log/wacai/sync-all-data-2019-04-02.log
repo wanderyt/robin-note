@@ -1,0 +1,8 @@
+[2019-04-02T10:12:15.745] [INFO] wacai - Start sync data:  Tue Apr 02 2019
+[2019-04-02T10:12:15.745] [INFO] wacai - current token is:  wctk=eO2k48oOZvtVpPYLKsjDF6QIbwt4acc7_cA
+[2019-04-02T10:12:15.748] [INFO] wacai - Start to sync data
+[2019-04-02T10:12:15.748] [INFO] wacai - From date:  2015-10-01
+[2019-04-02T10:12:15.748] [INFO] wacai - To date:  2019-04-02
+[2019-04-02T10:14:52.083] [INFO] wacai - Data retrieved with  4591  records.
+[2019-04-02T10:14:52.083] [INFO] wacai - Starting to write data with  4591  records.
+[2019-04-02T10:14:56.254] [INFO] wacai - Sync done.
