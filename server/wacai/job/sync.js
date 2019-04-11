@@ -26,20 +26,7 @@ const getToken = () => {
   return token;
 }
 
-const syncOneDay = () => {
-  const now = new Date();
-  const fromDate = formatDate(new Date(now - 24 * 3600 * 1000 - 24 * 3600 * 1000));
-  const toDate = formatDate(now);
-  const token = getToken();
-
-  syncData({
-    token,
-    fromDate,
-    toDate
-  });
-}
-
-const syncAll = ({logger}) => {
+const sync = (from, to, {logger}) => {
   const now = new Date();
   const fromDate = '2015-10-01';
   const toDate = formatDate(now);
@@ -47,12 +34,13 @@ const syncAll = ({logger}) => {
 
   syncData({
     token,
-    fromDate,
-    toDate,
+    fromDate: from || fromDate,
+    toDate: to || toDate,
     beforeSync: () => {
-      let db = createDBConnection();
-      deleteAllData(db);
-      closeDB(db);
+      // DO NOT DELETE DATA ANY MORE
+      // let db = createDBConnection();
+      // deleteAllData(db);
+      // closeDB(db);
     }
   }, {
     logger
@@ -63,7 +51,6 @@ const log4js = require('log4js');
 const now = formatDate(new Date());
 const logName = LOG_PATH + 'sync-all-data-' + now + '.log';
 console.log('logName: ', logName);
-const mkdirp = require('mkdirp');
 
 log4js.configure({
   "appenders": {
@@ -81,4 +68,10 @@ log4js.configure({
 });
 
 const logger = log4js.getLogger('wacai');
-syncAll({logger});
+
+// Get start date and end date
+const args = process.argv.slice(2) || [];
+console.log(args);
+
+let [from, to] = args;
+sync(from, to, {logger});
