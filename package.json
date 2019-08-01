@@ -1,6 +1,6 @@
 {
   "name": "robin-note",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "note board for little robin",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
   "dependencies": {
     "@material-ui/core": "^3.7.1",
     "autoprefixer": "7.1.2",
-    "axios": "^0.17.1",
+    "axios": "^0.18.1",
     "babel-core": "6.25.0",
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
@@ -46,7 +46,7 @@
     "concurrently": "^3.5.1",
     "css-loader": "0.28.4",
     "dotenv": "4.0.0",
-    "eslint": "4.4.1",
+    "eslint": "^4.18.2",
     "eslint-config-react-app": "^2.0.1",
     "eslint-loader": "1.9.0",
     "eslint-plugin-flowtype": "2.35.0",
@@ -90,7 +90,7 @@
     "underscore": "^1.8.3",
     "url-loader": "0.5.9",
     "webpack": "^3.5.1",
-    "webpack-dev-server": "2.8.2",
+    "webpack-dev-server": "^3.1.11",
     "webpack-manifest-plugin": "1.2.1",
     "whatwg-fetch": "2.0.3",
     "xhr": "^2.4.0"
